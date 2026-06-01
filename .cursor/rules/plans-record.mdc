@@ -1,0 +1,12 @@
+---
+description: Record all plans in the Plans directory
+alwaysApply: true
+---
+
+# Plans Directory
+
+Whenever you create, discuss, or finalize a plan (architecture decisions, feature designs, refactoring strategies, implementation approaches, etc.), save a written record of it in the `Plans/` directory at the project root.
+
+- Use a descriptive filename: `Plans/<topic>-plan.md` (e.g. `Plans/auth-refactor-plan.md`)
+- Include the date, goal, approach, and any key trade-offs or decisions made
+- Update the file if the plan evolves during the session
