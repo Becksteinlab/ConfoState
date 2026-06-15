@@ -1,3 +1,6 @@
+# LeuT-fold secondary active transporters
+# One PDB code per line. Lines beginning with # are ignored.
+# Source: chatgpt-LeuT branch, data/structures/
 3F3A
 3F3C
 3F3D
