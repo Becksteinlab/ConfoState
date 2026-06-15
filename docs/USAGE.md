@@ -23,6 +23,7 @@ Download them locally before running any analysis.
 
 Use the codes file for the relevant protein family:
 
+    mkdir -p data/structures/LeuT/
     python scripts/download_structures.py \
         --codes-file data/protein_families/LeuT_transporters.txt \
         --output-dir data/structures/LeuT/
