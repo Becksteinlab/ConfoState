@@ -1,0 +1,41 @@
+---
+description: Maintain per-script documentation in docs/scripts/
+alwaysApply: true
+---
+
+# Script Documentation
+
+Every script in `scripts/` must have a matching man-page-style doc at `docs/scripts/<script_name>.md`.
+
+- When you **create** a script `scripts/foo.py`, also create `docs/scripts/foo.md`.
+- When you **update** a script, update `docs/scripts/<script_name>.md` to match.
+
+## Doc file structure
+
+```markdown
+# foo
+
+Short one-line description.
+
+## Synopsis
+
+    python scripts/foo.py [OPTIONS]
+
+## Description
+
+What the script does, in a few sentences.
+
+## Options
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--bar` | `baz` | What --bar does |
+
+## Examples
+
+    python scripts/foo.py --bar value
+
+## Output
+
+What files or stdout the script produces.
+```
