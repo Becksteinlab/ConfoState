@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Structure files — do not check in; download locally with scripts/download_structures.py
+data/structures/
+*.pdb
+*.pdb.gz
+*.cif
+*.cif.gz
+*.mmcif
+*.mmcif.gz
+*.ent
+*.ent.gz
+
+# Data outputs (generated files)
+data/annotations/*.csv
+data/annotations/*.json
+
+# OS / editor
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
