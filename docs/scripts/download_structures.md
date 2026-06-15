@@ -25,23 +25,50 @@ between requests avoids overloading the RCSB servers.
 
 ## Examples
 
-Download all codes in the default codes file:
+### Download all LeuT transporters to input directory
 
-    python scripts/download_structures.py
+```bash
+python scripts/download_structures.py \
+    --codes-file data/protein_families/LeuT_transporters.txt \
+    --output-dir input
+```
 
-Re-download everything to a custom directory:
+### Download specific structures
 
-    python scripts/download_structures.py --output-dir /tmp/pdb --overwrite
+```bash
+python scripts/download_structures.py \
+    --codes 3F3A 3F3C 3F3D 3F3E \
+    --output-dir input
+```
 
-Download a specific subset of structures:
+### Re-download with overwrite
 
-    python scripts/download_structures.py --codes 3F3A 3F3C 6XWM
+```bash
+python scripts/download_structures.py \
+    --codes-file data/protein_families/LeuT_transporters.txt \
+    --output-dir input \
+    --overwrite
+```
 
-## Input
+### Faster downloads (no delay between requests)
 
-`data/structures/pdb_codes.txt` (default) — plain text, one PDB code per line.
+```bash
+python scripts/download_structures.py \
+    --codes-file data/protein_families/LeuT_transporters.txt \
+    --output-dir input \
+    --delay 0
+```
 
 ## Output
 
-One `<CODE>.pdb` file per code written to `--output-dir`. A summary line is
-printed to stdout after all downloads complete, listing any failures.
+- `.pdb` files saved to `--output-dir` with names matching their PDB codes (uppercase)
+- Example: downloading PDB code `3F3A` creates `input/3F3A.pdb`
+- Console output reports: success count, failed codes (if any), and HTTP/network errors
+- Existing files are reported as "skipped" (unless `--overwrite` is used)
+
+## Notes
+
+- PDB codes are normalized to uppercase internally
+- Default delay of 0.5 seconds between requests respects RCSB rate limits
+- Failed downloads are reported at the end but do not stop execution
+- Files are downloaded from `https://files.rcsb.org/download/{CODE}.pdb`
