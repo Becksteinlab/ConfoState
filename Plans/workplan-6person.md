@@ -12,6 +12,11 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 
 ---
 
+## History
+
+- 2026-06-15 initial draft (AI generated)
+- 2026-06-29 annotated in group meeting
+
 ## Person 1: Data Curation & Annotation
 
 **Role:** Data lead  
