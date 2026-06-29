@@ -17,13 +17,18 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 - 2026-06-15 initial draft (AI generated)
 - 2026-06-29 annotated in group meeting
 
+## General development notes
+
+- Talk to persons with whom you have dependencies: agree on data structures and file formats, document with dates/versions.
+- Don't be afraid to make up data to keep working. 
+
 ## Person 1: Data Curation & Annotation
 
 **Role:** Data lead  
 **Duration:** 3–4 weeks  
 **Milestone:** Phase 1 completion
 
-**Assignee**: 
+**Assignee**: Josh
 
 ### Tasks
 
@@ -46,6 +51,11 @@ ConfoState development split into 6 parallel work streams, each led by one team 
        - **structure in PDB format** (may involve waiting for OPM server to process)
      - retrieve embedded structure and geometric parameters
    - Add columns to CSV: `opm_tm_count`, `opm_tilt_angle`, `opm_rotation_angle`
+
+3. **Fetch Secondary Structure Data**
+   - Binding Site/Ligand from pdb.
+   - Secondary Structure from pdb. Examples such as helical bundles and beta sheets.
+   - Different structural domains such as scaffold and transport domains. This would differ on a per family basis. READ PAPERS!!!!
 
 3. **Build data validation pipeline**
    - **Document the file format!!!!** (manually check!)
@@ -71,18 +81,33 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 
 ---
 
-## Person 2: Feature Engineering
+## Person 2A + 2B: Feature Engineering
+
+2 person work package (work on separate features, agree on general API)
 
 **Role:** Structural biology & feature engineering lead  
 **Duration:** 3–4 weeks  
 **Milestone:** Phase 2 completion
 
+**Assignee**: Amru
+
+
 ### Tasks
 
 1. **Implement cavity/solvent accessibility features**
    - Create `confostate/features/cavity.py`
-   - Use MSMS or PyMOL to compute binding site volume and solvent-accessible surface area
+   - Compute binding site volume and solvent-accessible surface area
    - Features: `cavity_volume`, `cavity_accessibility_in`, `cavity_accessibility_out`
+   - Requires preprocessing pipeline from Person 1? Included in pdb annonations. 
+   - Other geometry may be ok. Probably need orientation?
+   - Run hollow (program that fill structural holes)
+      1. Proper initialization (shortest path of nearest neighbor graph of hollow centers)
+      - Skips surface gen?
+      - Need to know where binding site is
+      - Runs on python 2.7 (need a rewrite)
+      2. Extracting Features
+         - How many paths?
+         - Caliber (Transition Path?)
 
 2. **Implement domain distance features**
    - Create `confostate/features/domains.py`
@@ -92,31 +117,39 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 3. **Implement RMSD-to-reference features**
    - Create `confostate/features/rmsd.py`
    - Select 2–3 reference structures per state from curated dataset
-   - Compute RMSD and alignment scores
+   - Compute RMSD
+   - Sequence Alignment
 
 4. **Implement OPM orientation features**
    - Create `confostate/features/orientation.py`
+   - Reusable previous OPM workflow from workpackage 1?
    - Use OPM tilt, rotation, and depth data as features
 
 5. **Add symmetry features** (optional)
    - Create `confostate/features/symmetry.py`
    - Compute repeat-unit symmetry score
+   - Lucy Forest might have a database?
+   - Look for inverted repeats (probably hard)
+    - Sequence alignment
+    - Superimposition
+    - looks hard :9
 
 6. **Implement feature vector exporter**
    - Create `confostate/features/__init__.py` with `extract_features(pdb_path)` → feature dict
    - Unit tests for each module
+   - Feature vector
 
 ### Deliverables
 
-- ✓ `confostate/features/` with 5–6 feature modules
+- ✓ `confostate/features/` with >=3 feature modules
 - ✓ Tested `extract_features()` function
 - ✓ Feature documentation in `docs/features.md`
 - ✓ Example feature vectors for all 25 LeuT structures
 
 ### Blockers / Dependencies
 
-- Depends on: Data person (for reference structures and OPM data)
-- Blocks: ML person (feature vectors needed for training)
+- Depends on: Data person (for reference structures and collaberate on OPM data)
+- For ML person (feature vectors needed for training) -- create a synthetic feature vector
 
 ---
 
@@ -125,6 +158,8 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 **Role:** Machine learning engineer  
 **Duration:** 3–4 weeks  
 **Milestone:** Phase 3 completion
+
+**Assignee**: Chenou
 
 ### Tasks
 
@@ -135,8 +170,9 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 
 2. **Implement baseline models**
    - Create `confostate/models/baseline.py`
-   - Logistic regression, Random Forest, SVM
+   - Logistic regression, Random Forest, SVM, neural networks 
    - Hyperparameter tuning
+   - Decide which models to use?
 
 3. **Build training pipeline**
    - Create `confostate/models/train.py`
@@ -147,14 +183,18 @@ ConfoState development split into 6 parallel work streams, each led by one team 
    - Create `confostate/models/evaluate.py`
    - Confusion matrix, precision/recall, per-state metrics
    - Generate evaluation report (HTML/Markdown)
+   - Metrics to consider:
+      1. Test set accuracy
+      2. Confidence Levels in conformational (how certain)
+      3. ROC Curve (area under the curve)
 
 5. **Build model registry**
    - Create `confostate/models/registry.py`
    - Map family → trained model artifact
+      - Packaging different models with optimized hyperparameters
+      - Should hyperparameters be family agnostic or family specific?
+         - consensus model?
    - Version tracking
-
-6. **Optional: advanced models**
-   - XGBoost, neural networks if time permits
 
 ### Deliverables
 
@@ -176,6 +216,8 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 **Duration:** 2–3 weeks  
 **Milestone:** Phase 4 completion
 
+**Assignee**: Leah
+
 ### Tasks
 
 1. **Implement feature importance extraction**
@@ -186,6 +228,9 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 2. **Build explanation renderer**
    - Create `confostate/explain/render.py`
    - Convert feature importance → natural language
+     - HOW??? [Oliver asks for a friend]
+     - We can use a open-weight model (run Llama, ... free tokens at ASU)
+     - Install here...
    - Template-based explanations (e.g., "TM1–TM7 distance of X Å is consistent with {state}")
 
 3. **Add literature linking**
@@ -204,17 +249,20 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 ### Deliverables
 
 - ✓ `confostate/explain/` with full explanation pipeline
+- use of low-cost/free model (installed locally or ASU)
 - ✓ Human-readable explanations for test structures
 - ✓ Explainability documentation with examples
 
 ### Blockers / Dependencies
 
-- Depends on: ML person (trained models and feature importance)
+- Depends on: ML person (trained models and feature importance) (make up sh**t to move forward, see General Notes)
 - Blocks: CLI person (explanations integrated into output)
 
 ---
 
 ## Person 5: CLI & Python API
+
+Not assigned, will figure it out when we have something.
 
 **Role:** Software engineer / DevOps lead  
 **Duration:** 2–3 weeks  
@@ -268,7 +316,11 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 **Duration:** 2–3 weeks  
 **Milestone:** Phase 5+ completion
 
+**Assignee:**  Oliver
+
 ### Tasks
+
+0. Test monitor (pester everyone else to write tests!)
 
 1. **Set up continuous integration (CI)**
    - Create `.github/workflows/test.yml`
