@@ -18,20 +18,35 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 **Duration:** 3–4 weeks  
 **Milestone:** Phase 1 completion
 
+**Assignee**: 
+
 ### Tasks
 
 1. **Verify and curate LeuT annotations**
    - Cross-check each of the 25 PDB entries in `data/annotations/leu_t_transporters.csv`
    - Fetch authoritative metadata from RCSB API (resolution, experimental method, release date, DOI)
+      - generate code to get metadata
+      - should become re-usable
    - Verify conformational state labels against primary literature
+      - initially manually
+      - look into automating!
+      - develop a vocabulary of state descriptors (use literature!)
    - Add DOI and PubMed IDs to the reference column
+     - automate
 
 2. **Fetch membrane orientations from OPM**
    - For each structure, retrieve orientation from OPM database or submit calculation job
+     - automate: function to retrieve OPM structure for 
+       - either given PDB ID or
+       - **structure in PDB format** (may involve waiting for OPM server to process)
+     - retrieve embedded structure and geometric parameters
    - Add columns to CSV: `opm_tm_count`, `opm_tilt_angle`, `opm_rotation_angle`
 
 3. **Build data validation pipeline**
+   - **Document the file format!!!!** (manually check!)
    - Create `confostate/data/validators.py` with schema checks for annotations CSV
+     - check that the CSV is complete
+     - has correct entries, eg proper states
    - Document data quality requirements in `docs/data-curation.md`
 
 4. **Expand to additional protein families** (if time permits)
@@ -41,6 +56,7 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 
 - ✓ Verified `data/annotations/leu_t_transporters.csv` with authoritative metadata
 - ✓ OPM orientation data added to annotations
+- definition of the CSV file with annotations
 - ✓ `confostate/data/validators.py`
 - ✓ Data curation guide in `docs/`
 
