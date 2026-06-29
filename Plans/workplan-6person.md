@@ -89,7 +89,7 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 **Duration:** 3–4 weeks  
 **Milestone:** Phase 2 completion
 
-**Assignee**: Amru
+**Assignee**: Amru, Marshal
 
 
 ### Tasks
@@ -216,7 +216,7 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 **Duration:** 2–3 weeks  
 **Milestone:** Phase 4 completion
 
-**Assignee**: Leah
+**Assignee**: Leah, Apollo
 
 ### Tasks
 
