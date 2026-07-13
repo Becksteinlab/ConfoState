@@ -59,6 +59,10 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 
 # Random idea use an LLM to classify state (https://docs.rc.asu.edu/ai/api/)
 # Feed conclusion and abtract to LLM to get info
+#
+# https://docs.rc.asu.edu/voyager-accounts/
+# "No-cost LLM API access is available to all users with an ASURITE username. See how to request a Non-HPC Account."
+# Leah is cool and Belgium sucks 
 3. **Build data validation pipeline** (idk -- is hard - no metadata)
    - **Document the file format!!!!** (manually check!)
    - Create `confostate/data/validators.py` with schema checks for annotations CSV
