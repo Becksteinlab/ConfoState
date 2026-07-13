@@ -57,6 +57,8 @@ ConfoState development split into 6 parallel work streams, each led by one team 
    - Secondary Structure from pdb. Examples such as helical bundles and beta sheets.
    - Different structural domains such as scaffold and transport domains. This would differ on a per family basis. READ PAPERS!!!!
 
+# Random idea use an LLM to classify state (https://docs.rc.asu.edu/ai/api/)
+# Feed conclusion and abtract to LLM to get info
 3. **Build data validation pipeline** (idk -- is hard - no metadata)
    - **Document the file format!!!!** (manually check!)
    - Create `confostate/data/validators.py` with schema checks for annotations CSV
