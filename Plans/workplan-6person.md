@@ -115,6 +115,9 @@ ConfoState development split into 6 parallel work streams, each led by one team 
          - How many paths?
          - Caliber (Transition Path?)
 
+   Example use of hollow/networx for finding shortes path between binding site and transport
+   site https://github.com/Becksteinlab/TBC1D5-Rab7-NHE6-proton-diffusion-model/tree/main/proton_pathway
+
 2. **Implement domain distance features**
    - Create `confostate/features/domains.py`
    - Define key helices/domains for LeuT (e.g., TM1–TM7, substrate-binding residues)
