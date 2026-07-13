@@ -16,6 +16,8 @@ authors = [
 dependencies = [
     "pandas>=1.3.0",
     "numpy>=1.21.0",
+    "MDAnalysis>=2.4.0",
+    "scipy>=1.7.0",
 ]
 
 [project.optional-dependencies]
@@ -44,8 +46,9 @@ dev = [
     "pre-commit>=3.0",
 ]
 
-[tool.setuptools]
-packages = ["confostate"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["confostate*"]
 
 [tool.setuptools.package-data]
 confostate = ["data/**/*"]
