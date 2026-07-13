@@ -181,6 +181,7 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 1. **Build dataset loader**
    - Create `confostate/data/datasets.py`
    - Combine annotations CSV, PDB structures, and feature vectors
+   - Implement cleaning and normalization
    - Implement train/test splits
 
 2. **Implement baseline models**
