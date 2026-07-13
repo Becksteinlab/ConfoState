@@ -336,6 +336,8 @@ Not assigned, will figure it out when we have something.
 1. **Maintain build system an dependencies**
    - update pyproject.toml
    - build related code (eg OPM)
+   - should work with Python 3.12 - 3.14
+   - each developer should update dependencies in pyproject.toml as needed
 
 2. **Set up continuous integration (CI)**
    - Create `.github/workflows/test.yml`
