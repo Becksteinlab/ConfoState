@@ -100,6 +100,12 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 
 ### Tasks
 
+0. **Define file/data formats for features**
+   - document features (descriptions, identifiers)
+   - document CSV file layouts
+   - document API (eg pandas data frames layouts)
+   - curate documentation on features (stewardship)
+
 1. **Implement cavity/solvent accessibility features**
    - Create `confostate/features/cavity.py`
    - Compute binding site volume and solvent-accessible surface area
