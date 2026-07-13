@@ -16,6 +16,7 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 
 - 2026-06-15 initial draft (AI generated)
 - 2026-06-29 annotated in group meeting
+- 2026-07-13 Person 3 execution plan added in Plans/person3-ml-workplan-2026-07-13.md
 
 ## General development notes
 
@@ -160,6 +161,8 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 **Milestone:** Phase 3 completion
 
 **Assignee**: Chenou
+
+Detailed execution plan: Plans/person3-ml-workplan-2026-07-13.md
 
 ### Tasks
 
