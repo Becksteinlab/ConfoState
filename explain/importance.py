@@ -1,3 +1,9 @@
+# {'IF':0.8,
+#  'OF': 0.05,
+#  'OCC': 0.15}
+
+# family specific? 
+
 def explain(ai_results):
     print(f'your results are {ai_results}')
 
