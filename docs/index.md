@@ -9,13 +9,16 @@ described in the literature.
 
 USAGE
 api
+development
 scripts/download_structures
 LeuT_descriptors
 ```
+
 ## Quick start
 
 ```bash
 pip install -e .
 ```
 
-See {doc}`USAGE` for workflows and {doc}`api` for the Python API.
+See {doc}`USAGE` for workflows, {doc}`api` for the Python API, and
+{doc}`development` for coding style and pre-commit.
