@@ -19,8 +19,23 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+test = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+docs = [
+    "sphinx>=7.0",
+    "myst-parser>=2.0",
+    "furo>=2024.1.0",
+    "sphinx-copybutton>=0.5",
+]
 dev = [
     "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "sphinx>=7.0",
+    "myst-parser>=2.0",
+    "furo>=2024.1.0",
+    "sphinx-copybutton>=0.5",
     "black>=22.0",
     "flake8>=4.0",
 ]
@@ -30,3 +45,11 @@ packages = ["confostate"]
 
 [tool.setuptools.package-data]
 confostate = ["data/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.coverage.run]
+source = ["confostate"]
+branch = true
