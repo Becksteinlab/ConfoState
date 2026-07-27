@@ -95,6 +95,18 @@ Person 3 outline scripts are available to scaffold ML workflows:
         --metrics-json docs/reports/phase3-eval-metrics.json \
         --show-latest
 
+Train a baseline classifier from the annotation-table inputs defined in
+`data/annotations/leu_t_transporters.csv.example`:
+
+    python scripts/train_annotation_model.py
+
+Use a real annotation file (same schema) once available:
+
+    python scripts/train_annotation_model.py \
+        --annotations data/annotations/leu_t_transporters.csv \
+        --model-out data/models/annotations_baseline_logreg.joblib \
+        --metrics-out data/models/annotations_baseline_metrics.json
+
 ---
 
 ## Notes
