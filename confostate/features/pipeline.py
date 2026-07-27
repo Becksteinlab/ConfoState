@@ -19,7 +19,7 @@ FEATURE_GROUPS = ("cavity", "domains", "rmsd", "orientation")
 def extract_features(
     pdb_path: str,
     pdb_id: Optional[str] = None,
-    family: str = "LeuT",
+    family: str = "LeuT",  # reserved for multi-family support (LeuT only for now)
     annotations_row: Optional[dict[str, Any]] = None,
     reference_dir: Optional[str] = None,
     include_rmsd: bool = True,
@@ -35,7 +35,10 @@ def extract_features(
     features: dict[str, float] = {}
 
     features.update(extract_cavity_features(structure, membrane_normal=membrane_normal))
-    features.update(extract_domain_features(structure))
+    features.update(extract_domain_features(
+        structure,
+        reference_dir=reference_dir or str(Path(pdb_path).parent),
+    ))
     features.update(extract_orientation_features(structure, annotations_row=annotations_row))
 
     if include_rmsd:
