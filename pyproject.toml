@@ -29,6 +29,10 @@ docs = [
     "furo>=2024.1.0",
     "sphinx-copybutton>=0.5",
 ]
+lint = [
+    "ruff>=0.9",
+    "pre-commit>=3.0",
+]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
@@ -36,8 +40,8 @@ dev = [
     "myst-parser>=2.0",
     "furo>=2024.1.0",
     "sphinx-copybutton>=0.5",
-    "black>=22.0",
-    "flake8>=4.0",
+    "ruff>=0.9",
+    "pre-commit>=3.0",
 ]
 
 [tool.setuptools]
@@ -53,3 +57,27 @@ addopts = "-ra"
 [tool.coverage.run]
 source = ["confostate"]
 branch = true
+
+# All code-style settings live here (ruff lint + format).
+[tool.ruff]
+line-length = 79
+target-version = "py39"
+include = ["*.py", "*.pyi"]
+extend-exclude = [
+    "docs/_build",
+    "Plans",
+]
+
+[tool.ruff.lint]
+# Flake8-compatible core rules (pycodestyle + pyflakes).
+select = ["E", "F", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+# Example scripts may adjust sys.path before importing the package.
+"examples/*" = ["E402"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

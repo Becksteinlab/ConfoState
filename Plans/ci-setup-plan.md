@@ -29,8 +29,13 @@ Adapt the MIT-licensed `.github` workflows copied from [Becksteinlab/multibind](
 - Push to `main`: deploy with `peaceiris/actions-gh-pages` to the `gh-pages` branch
 - Docs sources: Markdown via MyST (`docs/`), Furo theme, autodoc for the public API
 
+### Lint (`.github/workflows/lint.yml`)
+- Ruff check + format `--check` with **line-length 79** (PEP 8)
+- All style settings in `pyproject.toml` (`[tool.ruff*]`)
+- Local: `.pre-commit-config.yaml` + `CONTRIBUTING.md` / `docs/development.md`
+
 ### Supporting package changes
-- `pyproject.toml`: `test`, `docs`, and expanded `dev` extras; pytest/coverage config
+- `pyproject.toml`: `test`, `docs`, `lint`, and `dev` extras; pytest/coverage/ruff config
 - Minimal `tests/test_package.py` so CI is green before the full suite lands
 - `.gitignore`: coverage artifacts and `docs/_build/`
 
@@ -41,7 +46,7 @@ Adapt the MIT-licensed `.github` workflows copied from [Becksteinlab/multibind](
 | pip/setuptools instead of Poetry | Matches existing ConfoState packaging |
 | Separate `docs.yml` (not in multibind) | Workplan asks for gh-pages; multibind uses Read the Docs |
 | Codecov `fail_ci_if_error: false` | Avoid red CI before Codecov is configured |
-| Deploy on tags/releases only | Same release model as multibind; no accidental publishes |
+| Ruff instead of Black/Flake8 | One tool; all style settings in `pyproject.toml` |
 
 ## Local verification
 
@@ -49,8 +54,10 @@ Use the project mamba env (do not create ad-hoc venvs):
 
 ```bash
 mamba activate confostate
-pip install -e ".[test,docs]"
+pip install -e ".[dev]"
 pytest -v
+ruff check .
+ruff format --check .
 cd docs && make html
 ```
 
