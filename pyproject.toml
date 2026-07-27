@@ -16,7 +16,9 @@ authors = [
 dependencies = [
     "pandas",
     "numpy",
-    "requests"
+    "requests",
+    "openai",
+    "paper-retriever"
 ]
 
 [project.optional-dependencies]
