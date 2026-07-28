@@ -1,0 +1,24 @@
+# ConfoState documentation
+
+ConfoState classifies membrane protein structures into conformational states
+described in the literature.
+
+```{toctree}
+:maxdepth: 2
+:caption: Contents
+
+USAGE
+api
+development
+scripts/download_structures
+LeuT_descriptors
+```
+
+## Quick start
+
+```bash
+pip install -e .
+```
+
+See {doc}`USAGE` for workflows, {doc}`api` for the Python API, and
+{doc}`development` for coding style and pre-commit.
