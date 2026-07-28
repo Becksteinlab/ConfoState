@@ -45,6 +45,7 @@ python scripts/extract_feature_vectors.py
 
 Output: `data/features/leu_t_feature_vectors.csv` (generated locally; gitignored)
 
+(data-provenance)=
 ## Data provenance & current status (Person 3)
 
 **Read this before training.** Not all columns in the feature table are equally trustworthy.
@@ -187,7 +188,7 @@ available; otherwise estimates tilt/rotation from the structure principal axis.
 ## Dependencies on Person 1 (data)
 
 Person 1 will deliver a verified `data/annotations/leu_t_transporters.csv`.
-Until then, use the local stub described in [Data provenance & current status](#data-provenance--current-status-person-3).
+Until then, use the local stub described in {ref}`Data provenance & current status <data-provenance>`.
 
 - **Labels:** `conformation` (+ `conformation_status` column when verified)
 - **Metadata:** resolution, method, year from RCSB API

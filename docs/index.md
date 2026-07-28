@@ -8,10 +8,12 @@ described in the literature.
 :caption: Contents
 
 USAGE
-api
 development
 scripts/download_structures
-LeuT_descriptors
+scripts/extract_feature_vectors
+examples/LeuT_descriptors
+features/features.md
+api
 ```
 
 ## Quick start

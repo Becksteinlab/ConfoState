@@ -33,6 +33,8 @@ myst_enable_extensions = [
     "colon_fence",
     "deflist",
 ]
+# Generate reference targets for H1/H2 so Markdown `#fragment` links resolve.
+myst_heading_anchors = 2
 
 source_suffix = {
     ".rst": "restructuredtext",
