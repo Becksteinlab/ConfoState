@@ -1,16 +1,16 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="./">
+<html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="prev" title="download_structures" href="scripts/download_structures.html">
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Feature Extraction" href="../features/features.html"><link rel="prev" title="extract_feature_vectors" href="../scripts/extract_feature_vectors.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>Macromolecular Conformations in the LeuT Family - ConfoState</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+        <title>LeuT descriptors - ConfoState</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     
     
 
@@ -162,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">ConfoState</div></a>
+      <a href="../index.html"><div class="brand">ConfoState</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -181,11 +181,11 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   <span class="sidebar-brand-text">ConfoState</span>
   
-</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
@@ -193,13 +193,13 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="USAGE.html">ConfoState — Usage Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="development.html">Development guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scripts/download_structures.html">download_structures</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Macromolecular Conformations in the LeuT Family</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#curated-list-of-descriptors">Curated List of Descriptors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../USAGE.html">ConfoState — Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/download_structures.html">download_structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/extract_feature_vectors.html">extract_feature_vectors</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">LeuT descriptors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features/features.html">Feature Extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API reference</a></li>
 </ul>
 
 </div>
@@ -220,7 +220,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="_sources/LeuT_descriptors.md.txt" title="View this page">
+  <a class="muted-link" href="../_sources/examples/LeuT_descriptors.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -238,12 +238,14 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <p>The LeuT family of transporter proteins, also known as the leucine transporter family, is a group of membrane proteins that play a crucial role in the transport of amino acids across cell membranes. These transporters are responsible for the uptake of essential amino acids, such as leucine, isoleucine, and valine, into cells.</p>
+          <section id="leut-descriptors">
+<h1>LeuT descriptors<a class="headerlink" href="#leut-descriptors" title="Link to this heading">¶</a></h1>
+<p>The LeuT family of transporter proteins, also known as the leucine transporter family, is a group of membrane proteins that play a crucial role in the transport of amino acids across cell membranes. These transporters are responsible for the uptake of essential amino acids, such as leucine, isoleucine, and valine, into cells.</p>
 <section id="macromolecular-conformations-in-the-leut-family">
-<h1>Macromolecular Conformations in the LeuT Family<a class="headerlink" href="#macromolecular-conformations-in-the-leut-family" title="Link to this heading">¶</a></h1>
+<h2>Macromolecular Conformations in the LeuT Family<a class="headerlink" href="#macromolecular-conformations-in-the-leut-family" title="Link to this heading">¶</a></h2>
 <p>Studies have identified several macromolecular conformations in the LeuT family of transporter proteins, which can be described using a standardized set of descriptors. These conformations are essential for understanding the transport mechanism and function of these proteins.</p>
 <section id="conformational-states">
-<h2>Conformational States<a class="headerlink" href="#conformational-states" title="Link to this heading">¶</a></h2>
+<h3>Conformational States<a class="headerlink" href="#conformational-states" title="Link to this heading">¶</a></h3>
 <p>The LeuT family of transporter proteins can exist in several conformational states, including:</p>
 <ol class="arabic simple">
 <li><p><strong>Inward-facing-open (IF-open)</strong>: The substrate-binding site is open to the cytoplasm, allowing the substrate to bind or release.</p></li>
@@ -254,7 +256,7 @@
 </ol>
 </section>
 <section id="intermediate-conformations">
-<h2>Intermediate Conformations<a class="headerlink" href="#intermediate-conformations" title="Link to this heading">¶</a></h2>
+<h3>Intermediate Conformations<a class="headerlink" href="#intermediate-conformations" title="Link to this heading">¶</a></h3>
 <p>In addition to these main conformational states, several intermediate conformations have been identified, including:</p>
 <ol class="arabic simple">
 <li><p><strong>Outward-facing-half-open (OF-half-open)</strong>: A conformation where the extracellular gate is partially open, and the substrate-binding site is accessible from the extracellular space.</p></li>
@@ -263,7 +265,7 @@
 </section>
 </section>
 <section id="curated-list-of-descriptors">
-<h1>Curated List of Descriptors<a class="headerlink" href="#curated-list-of-descriptors" title="Link to this heading">¶</a></h1>
+<h2>Curated List of Descriptors<a class="headerlink" href="#curated-list-of-descriptors" title="Link to this heading">¶</a></h2>
 <p>Here is a curated list of descriptors for the known macromolecular conformations in the LeuT family of transporter proteins:</p>
 <ul class="simple">
 <li><p>Inward-facing-open (IF-open)</p></li>
@@ -276,7 +278,7 @@
 </ul>
 </section>
 <section id="references">
-<h1>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h1>
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Yamaguchi, A., et al. (2012). Molecular basis for the recognition of amino acids by the LeuT amino acid transporter. Nature, 481(7421), 177-183.</p></li>
 <li><p>Shi, Y., et al. (2018). Structure and mechanism of the bacterial MFS transporter LeuT. Nature, 563(7732), 532-537.</p></li>
@@ -284,21 +286,30 @@
 </ul>
 <p>These references provide a comprehensive understanding of the macromolecular conformations in the LeuT family of transporter proteins and have helped establish the standardized descriptors used to describe these conformations.</p>
 </section>
+</section>
 
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          
-          <a class="prev-page" href="scripts/download_structures.html">
+          <a class="next-page" href="../features/features.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Feature Extraction</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../scripts/extract_feature_vectors.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">download_structures</div>
+                <div class="title">extract_feature_vectors</div>
                 
               </div>
             </a>
@@ -332,13 +343,16 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Macromolecular Conformations in the LeuT Family</a><ul>
+<li><a class="reference internal" href="#">LeuT descriptors</a><ul>
+<li><a class="reference internal" href="#macromolecular-conformations-in-the-leut-family">Macromolecular Conformations in the LeuT Family</a><ul>
 <li><a class="reference internal" href="#conformational-states">Conformational States</a></li>
 <li><a class="reference internal" href="#intermediate-conformations">Intermediate Conformations</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#curated-list-of-descriptors">Curated List of Descriptors</a></li>
 <li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
 </ul>
 
           </div>
@@ -348,11 +362,11 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=01f34227"></script>
-    <script src="_static/doctools.js?v=fd6eb6e6"></script>
-    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
+</div><script src="../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
     </body>
 </html>

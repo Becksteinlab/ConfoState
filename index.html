@@ -194,12 +194,12 @@
   <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="USAGE.html">ConfoState — Usage Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scripts/download_structures.html">download_structures</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LeuT_descriptors.html">Macromolecular Conformations in the LeuT Family</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LeuT_descriptors.html#curated-list-of-descriptors">Curated List of Descriptors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LeuT_descriptors.html#references">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts/extract_feature_vectors.html">extract_feature_vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/LeuT_descriptors.html">LeuT descriptors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features/features.html">Feature Extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 </ul>
 
 </div>
@@ -254,13 +254,6 @@ described in the literature.</p>
 <li class="toctree-l2"><a class="reference internal" href="USAGE.html#notes">Notes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#confostate.load_annotations"><code class="docutils literal notranslate"><span class="pre">load_annotations()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#confostate.extract_features"><code class="docutils literal notranslate"><span class="pre">extract_features()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#confostate.data.loader.load_annotations"><code class="docutils literal notranslate"><span class="pre">load_annotations()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#confostate.data.loader.load_from_input_dir"><code class="docutils literal notranslate"><span class="pre">load_from_input_dir()</span></code></a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="development.html#style">Style</a></li>
 <li class="toctree-l2"><a class="reference internal" href="development.html#pre-commit">Pre-commit</a></li>
@@ -275,13 +268,37 @@ described in the literature.</p>
 <li class="toctree-l2"><a class="reference internal" href="scripts/download_structures.html#notes">Notes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="LeuT_descriptors.html">Macromolecular Conformations in the LeuT Family</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="LeuT_descriptors.html#conformational-states">Conformational States</a></li>
-<li class="toctree-l2"><a class="reference internal" href="LeuT_descriptors.html#intermediate-conformations">Intermediate Conformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts/extract_feature_vectors.html">extract_feature_vectors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scripts/extract_feature_vectors.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts/extract_feature_vectors.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts/extract_feature_vectors.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts/extract_feature_vectors.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripts/extract_feature_vectors.html#output">Output</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="LeuT_descriptors.html#curated-list-of-descriptors">Curated List of Descriptors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LeuT_descriptors.html#references">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/LeuT_descriptors.html">LeuT descriptors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/LeuT_descriptors.html#macromolecular-conformations-in-the-leut-family">Macromolecular Conformations in the LeuT Family</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/LeuT_descriptors.html#curated-list-of-descriptors">Curated List of Descriptors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/LeuT_descriptors.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="features/features.html">Feature Extraction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="features/features.html#package-layout">Package layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features/features.html#quick-start">Quick start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features/features.html#data-provenance-current-status-person-3">Data provenance &amp; current status (Person 3)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features/features.html#feature-modules">Feature modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features/features.html#dependencies-on-person-1-data">Dependencies on Person 1 (data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features/features.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="features/features.html#future-work">Future work</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#confostate.load_annotations"><code class="docutils literal notranslate"><span class="pre">load_annotations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#confostate.extract_features"><code class="docutils literal notranslate"><span class="pre">extract_features()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#confostate.data.loader.load_annotations"><code class="docutils literal notranslate"><span class="pre">load_annotations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#confostate.data.loader.load_from_input_dir"><code class="docutils literal notranslate"><span class="pre">load_from_input_dir()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 <section id="quick-start">
