@@ -9,6 +9,13 @@ venv/
 dist/
 build/
 .eggs/
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+
+# Sphinx
+docs/_build/
 
 # Structure files — do not check in; download locally with scripts/download_structures.py
 data/structures/

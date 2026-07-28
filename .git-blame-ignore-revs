@@ -1,0 +1,8 @@
+# Commits to ignore in git blame / GitHub blame (pure reformatting only).
+# https://docs.github.com/en/repositories/working-with-files/using-files/viewing-a-file#ignore-commits-in-the-blame-view
+
+# ruff reformatted py files to follow coding style
+14d6f8282db6ceb7b512b4c2ab88584d22ad0932
+
+# re-formatted code from main
+8b0662d77a285ac4f8a464c03f44d463ad17b25d

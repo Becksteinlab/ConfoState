@@ -33,4 +33,8 @@ Given the vast amount of structures in databases (primarily ProteinDatabank http
 
 * We may also want to consider internal repeat symmetries to help with conformational assignment (see DOI 10.1146/annurev-biophys-051013-023008)
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for coding style (Ruff, 79-character lines), pre-commit, and pull-request expectations.
+
 

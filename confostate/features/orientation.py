@@ -6,11 +6,17 @@ from typing import Any, Optional
 
 import numpy as np
 
-from confostate.features._structure import StructureData, angle_between_vectors, principal_axis
+from confostate.features._structure import (
+    StructureData,
+    angle_between_vectors,
+    principal_axis,
+)
 
 DEFAULT_MEMBRANE_NORMAL = np.array([0.0, 0.0, 1.0])
 
-_MISSING_VALUES = frozenset({"", "na", "n/a", "none", "null", "nan", "not_fetched", "pending"})
+_MISSING_VALUES = frozenset(
+    {"", "na", "n/a", "none", "null", "nan", "not_fetched", "pending"}
+)
 
 
 def _is_missing(value: Any) -> bool:
@@ -30,11 +36,15 @@ def _maybe_float(value: Any) -> Optional[float]:
         return None
 
 
-def _tilt_angle(protein_axis: np.ndarray, membrane_normal: np.ndarray) -> float:
+def _tilt_angle(
+    protein_axis: np.ndarray, membrane_normal: np.ndarray
+) -> float:
     return angle_between_vectors(protein_axis, membrane_normal)
 
 
-def _rotation_angle(protein_axis: np.ndarray, membrane_normal: np.ndarray) -> float:
+def _rotation_angle(
+    protein_axis: np.ndarray, membrane_normal: np.ndarray
+) -> float:
     normal = membrane_normal / np.linalg.norm(membrane_normal)
     projected = protein_axis - np.dot(protein_axis, normal) * normal
     proj_norm = np.linalg.norm(projected)
@@ -58,7 +68,9 @@ def _rotation_angle(protein_axis: np.ndarray, membrane_normal: np.ndarray) -> fl
     return angle
 
 
-def _membrane_depth(structure: StructureData, membrane_normal: np.ndarray) -> float:
+def _membrane_depth(
+    structure: StructureData, membrane_normal: np.ndarray
+) -> float:
     normal = membrane_normal / np.linalg.norm(membrane_normal)
     centroid = structure.ca_atoms.center_of_mass()
     return float(abs(np.dot(centroid, normal)))
@@ -75,13 +87,22 @@ def extract_orientation_features(
     OPM columns from annotations are used when present; otherwise values are
     computed from MDAnalysis CA coordinates.
     """
-    normal = membrane_normal if membrane_normal is not None else DEFAULT_MEMBRANE_NORMAL.copy()
+    normal = (
+        membrane_normal
+        if membrane_normal is not None
+        else DEFAULT_MEMBRANE_NORMAL.copy()
+    )
     axis = principal_axis(structure.ca_atoms.positions)
 
     features: dict[str, float] = {}
 
     if annotations_row:
-        for col in ("opm_tilt_angle", "opm_rotation_angle", "opm_depth", "opm_tm_count"):
+        for col in (
+            "opm_tilt_angle",
+            "opm_rotation_angle",
+            "opm_depth",
+            "opm_tm_count",
+        ):
             parsed = _maybe_float(annotations_row.get(col))
             if parsed is not None:
                 features[col] = parsed
@@ -100,6 +121,8 @@ def extract_orientation_features(
     return features
 
 
-def get_membrane_normal(annotations_row: Optional[dict[str, Any]] = None) -> np.ndarray:
+def get_membrane_normal(
+    annotations_row: Optional[dict[str, Any]] = None,
+) -> np.ndarray:
     """Return membrane normal vector, defaulting to Z-axis."""
     return DEFAULT_MEMBRANE_NORMAL.copy()

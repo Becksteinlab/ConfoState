@@ -9,9 +9,25 @@ from scipy.spatial import ConvexHull
 
 from confostate.features._structure import StructureData, center_of_mass
 
-# LeuT substrate / Na1 binding pocket residues (Yamashita et al. 2005, Singh et al. 2008).
+# LeuT substrate / Na1 binding pocket residues
+# (Yamashita et al. 2005, Singh et al. 2008).
 LEUT_BINDING_SITE_RESIDUES = (
-    21, 22, 23, 24, 55, 58, 91, 93, 108, 152, 156, 158, 256, 259, 319, 322,
+    21,
+    22,
+    23,
+    24,
+    55,
+    58,
+    91,
+    93,
+    108,
+    152,
+    156,
+    158,
+    256,
+    259,
+    319,
+    322,
 )
 
 ACCESSIBILITY_RADIUS = 12.0
@@ -39,7 +55,9 @@ def _accessibility_along_axis(
     ca_coords = structure.ca_atoms.positions
     relative = ca_coords - site_center
     projections = relative @ normal
-    slab_mask = (projections * direction > 0) & (np.abs(projections) < ACCESSIBILITY_SLAB_HEIGHT)
+    slab_mask = (projections * direction > 0) & (
+        np.abs(projections) < ACCESSIBILITY_SLAB_HEIGHT
+    )
     if not slab_mask.any():
         return 0.0
 
@@ -64,7 +82,9 @@ def extract_cavity_features(
     if membrane_normal is None:
         membrane_normal = np.array([0.0, 0.0, 1.0])
 
-    binding_atoms = structure.select_residues(binding_residues, heavy_atoms=True)
+    binding_atoms = structure.select_residues(
+        binding_residues, heavy_atoms=True
+    )
     if len(binding_atoms) == 0:
         binding_atoms = structure.select_residues(binding_residues)
 

@@ -16,7 +16,9 @@ DEFAULT_OUTPUT = "data/features/leu_t_feature_vectors.csv"
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Extract feature vectors for LeuT structures.")
+    parser = argparse.ArgumentParser(
+        description="Extract feature vectors for LeuT structures."
+    )
     parser.add_argument(
         "--annotations",
         default=DEFAULT_ANNOTATIONS,
@@ -47,7 +49,9 @@ def main() -> None:
 
     merged = annotations.merge(structures, on="pdb_id", how="inner")
     if len(merged) == 0:
-        raise SystemExit("No overlap between annotations and downloaded PDB files.")
+        raise SystemExit(
+            "No overlap between annotations and downloaded PDB files."
+        )
 
     print(f"Extracting features for {len(merged)} structures...")
     df = extract_features_batch(
@@ -60,7 +64,9 @@ def main() -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(output_path, index=False)
     print(f"Wrote {len(df)} feature vectors to {output_path}")
-    print(f"Feature columns: {len([c for c in df.columns if c not in ('pdb_id', 'file_path', 'conformation')])}")
+    meta = ("pdb_id", "file_path", "conformation")
+    n_feat = len([c for c in df.columns if c not in meta])
+    print(f"Feature columns: {n_feat}")
 
 
 if __name__ == "__main__":
