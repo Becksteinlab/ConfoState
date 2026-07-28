@@ -61,6 +61,11 @@ ruff format --check .
 cd docs && make html
 ```
 
+**PR CI note:** GitHub Actions on pull requests checks out a *merge* of the PR
+branch into the base (`main`). Lint therefore sees files that exist on `main`
+even if they are absent from the PR branch tip alone. Keep `ci` up to date with
+`main` (or run ruff on the merge tree) before relying on a local green check.
+
 Verified 2026-07-27: 3 tests passed; Sphinx HTML build succeeded.
 
 ## Follow-ups (manual / later)
