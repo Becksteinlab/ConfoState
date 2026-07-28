@@ -51,10 +51,12 @@ def _resolve_reference_path(pdb_id: str, reference_dir: Optional[str]) -> Path:
     candidates = []
     if reference_dir:
         candidates.append(Path(reference_dir) / f"{pdb_id}.pdb")
-    candidates.extend([
-        Path("input") / f"{pdb_id}.pdb",
-        Path("data/structures") / f"{pdb_id}.pdb",
-    ])
+    candidates.extend(
+        [
+            Path("input") / f"{pdb_id}.pdb",
+            Path("data/structures") / f"{pdb_id}.pdb",
+        ]
+    )
     for path in candidates:
         if path.exists():
             return path
@@ -82,15 +84,21 @@ def extract_rmsd_features(
     for state, ref_pdb_id in refs.items():
         ref_path = _resolve_reference_path(ref_pdb_id, reference_dir)
         reference = load_structure(str(ref_path), pdb_id=ref_pdb_id)
-        mobile_coords, ref_coords = _aligned_ca_groups(structure, reference, alignment_residues)
+        mobile_coords, ref_coords = _aligned_ca_groups(
+            structure, reference, alignment_residues
+        )
         rmsd_val = rms.rmsd(mobile_coords, ref_coords, superposition=True)
         features[f"rmsd_{state}"] = float(rmsd_val)
         rmsd_values.append(float(rmsd_val))
 
-    features["rmsd_min"] = float(min(rmsd_values)) if rmsd_values else float("nan")
+    features["rmsd_min"] = (
+        float(min(rmsd_values)) if rmsd_values else float("nan")
+    )
     if rmsd_values:
         best_state = min(refs.keys(), key=lambda s: features[f"rmsd_{s}"])
-        features["rmsd_best_state_index"] = float(list(refs.keys()).index(best_state))
+        features["rmsd_best_state_index"] = float(
+            list(refs.keys()).index(best_state)
+        )
     else:
         features["rmsd_best_state_index"] = float("nan")
 

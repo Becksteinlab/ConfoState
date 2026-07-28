@@ -13,14 +13,19 @@ from confostate.features.orientation import extract_orientation_features
 from confostate.features.rmsd import extract_rmsd_features
 
 INPUT_DIR = Path(__file__).resolve().parent.parent / "input"
-ANNOTATIONS = Path(__file__).resolve().parent.parent / "data/annotations/leu_t_transporters.csv"
+ANNOTATIONS = (
+    Path(__file__).resolve().parent.parent
+    / "data/annotations/leu_t_transporters.csv"
+)
 
 
 @pytest.fixture(scope="module")
 def sample_pdb() -> str:
     path = INPUT_DIR / "3F3E.pdb"
     if not path.exists():
-        pytest.skip("Sample PDB not found. Run scripts/download_structures.py first.")
+        pytest.skip(
+            "Sample PDB not found. Run scripts/download_structures.py first."
+        )
     return str(path)
 
 
@@ -64,7 +69,9 @@ def test_rmsd_features(sample_pdb, structure):
 def test_extract_features(sample_pdb):
     annotations = load_annotations(str(ANNOTATIONS))
     row = annotations[annotations["pdb_id"] == "3F3E"].iloc[0].to_dict()
-    features = extract_features(sample_pdb, annotations_row=row, reference_dir=str(INPUT_DIR))
+    features = extract_features(
+        sample_pdb, annotations_row=row, reference_dir=str(INPUT_DIR)
+    )
     assert "cavity_volume" in features
     assert "domain_TM1_TM7_distance" in features
     assert "opm_tilt_angle" in features
