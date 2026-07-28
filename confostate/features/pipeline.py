@@ -10,7 +10,10 @@ import pandas as pd
 from confostate.features._structure import load_structure
 from confostate.features.cavity import extract_cavity_features
 from confostate.features.domains import extract_domain_features
-from confostate.features.orientation import extract_orientation_features, get_membrane_normal
+from confostate.features.orientation import (
+    extract_orientation_features,
+    get_membrane_normal,
+)
 from confostate.features.rmsd import extract_rmsd_features
 
 FEATURE_GROUPS = ("cavity", "domains", "rmsd", "orientation")
@@ -34,9 +37,15 @@ def extract_features(
 
     features: dict[str, float] = {}
 
-    features.update(extract_cavity_features(structure, membrane_normal=membrane_normal))
+    features.update(
+        extract_cavity_features(structure, membrane_normal=membrane_normal)
+    )
     features.update(extract_domain_features(structure))
-    features.update(extract_orientation_features(structure, annotations_row=annotations_row))
+    features.update(
+        extract_orientation_features(
+            structure, annotations_row=annotations_row
+        )
+    )
 
     if include_rmsd:
         try:
@@ -57,13 +66,15 @@ def extract_features_batch(
     annotations_df: Optional[pd.DataFrame] = None,
     reference_dir: Optional[str] = None,
 ) -> pd.DataFrame:
-    """Extract features for multiple PDB files; returns one row per structure."""
+    """Extract features for multiple PDB files (one row per structure)."""
     rows = []
     for pdb_path in pdb_paths:
         pdb_id = Path(pdb_path).stem.upper()
         row_data: Optional[dict[str, Any]] = None
         if annotations_df is not None and "pdb_id" in annotations_df.columns:
-            matches = annotations_df[annotations_df["pdb_id"].str.upper() == pdb_id]
+            matches = annotations_df[
+                annotations_df["pdb_id"].str.upper() == pdb_id
+            ]
             if len(matches) > 0:
                 row_data = matches.iloc[0].to_dict()
 

@@ -65,11 +65,17 @@ def extract_domain_features(
             features[f"{key_base}_distance"] = float("nan")
             features[f"{key_base}_angle"] = float("nan")
             continue
-        features[f"{key_base}_distance"] = pairwise_distance(coms[helix_a], coms[helix_b])
-        features[f"{key_base}_angle"] = angle_between_vectors(axes[helix_a], axes[helix_b])
+        features[f"{key_base}_distance"] = pairwise_distance(
+            coms[helix_a], coms[helix_b]
+        )
+        features[f"{key_base}_angle"] = angle_between_vectors(
+            axes[helix_a], axes[helix_b]
+        )
 
     if "TM1" in coms and "TM6" in coms:
-        features["domain_gate_TM1_TM6_distance"] = pairwise_distance(coms["TM1"], coms["TM6"])
+        features["domain_gate_TM1_TM6_distance"] = pairwise_distance(
+            coms["TM1"], coms["TM6"]
+        )
     else:
         features["domain_gate_TM1_TM6_distance"] = float("nan")
 
