@@ -13,6 +13,7 @@ scripts/download_structures
 scripts/extract_feature_vectors
 examples/LeuT_descriptors
 features/features.md
+explainability
 api
 ```
 
