@@ -7,7 +7,8 @@ from datetime import datetime
 def download_metadata_from_RCSB(pdb_id):
     """(GPT generated docstring! Code written by hand)
 
-    Download and extract selected metadata for a protein structure from the RCSB PDB.
+    Download and extract selected metadata for a protein
+    structure from the RCSB PDB.
 
     Parameters
     ----------
