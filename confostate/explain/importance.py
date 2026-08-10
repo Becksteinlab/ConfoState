@@ -142,9 +142,7 @@ def extract_permutation_importance(
         for _ in range(n_repeats):
             permuted = feature_matrix.copy()
             if n_samples > 1:
-                other_values = np.delete(
-                    feature_matrix[:, col_idx], row_idx
-                )
+                other_values = np.delete(feature_matrix[:, col_idx], row_idx)
                 permuted[row_idx, col_idx] = rng.choice(other_values)
             else:
                 scale = max(abs(original_value), 1.0)

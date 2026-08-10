@@ -37,9 +37,7 @@ def render_text(
     method: str,
 ) -> str:
     """Render a plain-text explanation."""
-    confidence = prediction.probabilities.get(
-        prediction.predicted_state, 0.0
-    )
+    confidence = prediction.probabilities.get(prediction.predicted_state, 0.0)
     state_name = state_label(prediction.predicted_state)
     lines = [
         (
@@ -74,9 +72,7 @@ def render_markdown(
     method: str,
 ) -> str:
     """Render a Markdown explanation."""
-    confidence = prediction.probabilities.get(
-        prediction.predicted_state, 0.0
-    )
+    confidence = prediction.probabilities.get(prediction.predicted_state, 0.0)
     state_name = state_label(prediction.predicted_state)
     lines = [
         f"## Prediction: {prediction.pdb_id}",

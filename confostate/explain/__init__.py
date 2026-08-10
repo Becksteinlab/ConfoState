@@ -119,13 +119,9 @@ def explain(
         family=prediction.family,
     )
 
-    confidence = prediction.probabilities.get(
-        prediction.predicted_state, 0.0
-    )
+    confidence = prediction.probabilities.get(prediction.predicted_state, 0.0)
     text = render_text(prediction, top_features, citations, method)
-    markdown = render_markdown(
-        prediction, top_features, citations, method
-    )
+    markdown = render_markdown(prediction, top_features, citations, method)
 
     result = ExplanationResult(
         pdb_id=prediction.pdb_id,
