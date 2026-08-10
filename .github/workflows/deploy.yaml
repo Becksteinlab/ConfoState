@@ -12,6 +12,9 @@ concurrency:
   group: "${{ github.ref }}-${{ github.head_ref }}-${{ github.workflow }}"
   cancel-in-progress: false
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Build package

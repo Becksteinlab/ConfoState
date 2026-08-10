@@ -90,11 +90,6 @@ def load_structure(
     return structure
 
 
-def sort_by_resid(atomgroup: AtomGroup) -> AtomGroup:
-    """Return atom group sorted by residue number."""
-    return atomgroup[np.argsort(atomgroup.resids)]
-
-
 def center_of_mass(atomgroup: AtomGroup) -> np.ndarray:
     if len(atomgroup) == 0:
         raise ValueError("Cannot compute center of mass for empty atom group")

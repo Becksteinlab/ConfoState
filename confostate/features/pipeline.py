@@ -40,7 +40,12 @@ def extract_features(
     features.update(
         extract_cavity_features(structure, membrane_normal=membrane_normal)
     )
-    features.update(extract_domain_features(structure))
+    features.update(
+        extract_domain_features(
+            structure,
+            reference_dir=reference_dir or str(Path(pdb_path).parent),
+        )
+    )
     features.update(
         extract_orientation_features(
             structure, annotations_row=annotations_row
