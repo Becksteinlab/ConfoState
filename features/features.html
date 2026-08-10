@@ -296,7 +296,7 @@ python<span class="w"> </span>scripts/extract_feature_vectors.py
 </thead>
 <tbody>
 <tr class="row-even"><td><p><strong>Computed features (X)</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">cavity_*</span></code>, <code class="docutils literal notranslate"><span class="pre">domain_*</span></code>, <code class="docutils literal notranslate"><span class="pre">rmsd_*</span></code>, <code class="docutils literal notranslate"><span class="pre">opm_*</span></code>, <code class="docutils literal notranslate"><span class="pre">orientation_principal_axis_*</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cavity_*</span></code>, <code class="docutils literal notranslate"><span class="pre">domain_*</span></code>, <code class="docutils literal notranslate"><span class="pre">domain_*_delta_vs_*</span></code>, <code class="docutils literal notranslate"><span class="pre">rmsd_*</span></code>, <code class="docutils literal notranslate"><span class="pre">opm_*</span></code>, <code class="docutils literal notranslate"><span class="pre">orientation_principal_axis_*</span></code></p></td>
 <td><p><strong>Live computation</strong></p></td>
 <td><p>MDAnalysis + SciPy on PDB coordinates from RCSB</p></td>
 </tr>
@@ -379,6 +379,9 @@ Person 3  →  join X + y, train model   confostate/data/datasets.py, models/
 </pre></div>
 </div>
 </section>
+</section>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Link to this heading">¶</a></h2>
 <section id="extract-features-pdb-path">
 <h3><code class="docutils literal notranslate"><span class="pre">extract_features(pdb_path,</span> <span class="pre">...)</span></code><a class="headerlink" href="#extract-features-pdb-path" title="Link to this heading">¶</a></h3>
 <p>Main entry point in <code class="docutils literal notranslate"><span class="pre">confostate.features</span></code>. Returns a flat <code class="docutils literal notranslate"><span class="pre">dict[str,</span> <span class="pre">float]</span></code>.</p>
@@ -477,6 +480,32 @@ Person 3  →  join X + y, train model   confostate/data/datasets.py, models/
 </tbody>
 </table>
 </div>
+<p>For each reference PDB (<code class="docutils literal notranslate"><span class="pre">3F3A</span></code>, <code class="docutils literal notranslate"><span class="pre">3F3E</span></code>, <code class="docutils literal notranslate"><span class="pre">3F4J</span></code>, <code class="docutils literal notranslate"><span class="pre">3USI</span></code>), delta features are also
+emitted when reference files are available in <code class="docutils literal notranslate"><span class="pre">reference_dir</span></code>:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature pattern</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Source</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">domain_*_distance_delta_vs_&lt;PDB&gt;</span></code></p></td>
+<td><p>Distance change vs reference structure</p></td>
+<td><p>Computed</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">domain_*_angle_delta_vs_&lt;PDB&gt;</span></code></p></td>
+<td><p>Angle change vs reference structure</p></td>
+<td><p>Computed</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">domain_gate_TM1_TM6_distance_delta_vs_&lt;PDB&gt;</span></code></p></td>
+<td><p>Gate distance change vs reference</p></td>
+<td><p>Computed</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>Helix boundaries are in <code class="docutils literal notranslate"><span class="pre">LEUT_TM_HELICES</span></code>.</p>
 </section>
 <section id="rmsd-confostate-features-rmsd">
@@ -543,6 +572,107 @@ available; otherwise estimates tilt/rotation from the structure principal axis.<
 </table>
 </div>
 </section>
+</section>
+<section id="feature-column-manifest">
+<h2>Feature column manifest<a class="headerlink" href="#feature-column-manifest" title="Link to this heading">¶</a></h2>
+<p>Complete list of columns in <code class="docutils literal notranslate"><span class="pre">extract_features()</span></code> output and
+<code class="docutils literal notranslate"><span class="pre">leu_t_feature_vectors.csv</span></code>:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Source</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cavity_volume</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>Convex hull of binding-pocket atoms</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cavity_accessibility_in</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>Inward membrane-side exposure proxy</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cavity_accessibility_out</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>Outward membrane-side exposure proxy</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">domain_*_distance</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>Absolute TM helix COM distances</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">domain_*_angle</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>Absolute TM helix axis angles</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">domain_gate_TM1_TM6_distance</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>Gate helix distance</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">domain_*_delta_vs_&lt;PDB&gt;</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>Change vs reference structure</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">opm_tilt_angle</span></code></p></td>
+<td><p>Computed (PDB) or annotations</p></td>
+<td><p>OPM CSV used when not <code class="docutils literal notranslate"><span class="pre">N/A</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">opm_rotation_angle</span></code></p></td>
+<td><p>Computed (PDB) or annotations</p></td>
+<td><p>OPM CSV used when not <code class="docutils literal notranslate"><span class="pre">N/A</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">opm_depth</span></code></p></td>
+<td><p>Computed (PDB) or annotations</p></td>
+<td><p>OPM CSV used when not <code class="docutils literal notranslate"><span class="pre">N/A</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">opm_tm_count</span></code></p></td>
+<td><p>Annotations only</p></td>
+<td><p>When provided by Person 1</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">orientation_principal_axis_x/y/z</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>Principal axis components</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rmsd_OF_open</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>RMSD vs 3F3E</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rmsd_IF_open</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>RMSD vs 3F3A</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rmsd_Occluded</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>RMSD vs 3F4J</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rmsd_Intermediate</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>RMSD vs 3USI</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rmsd_min</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>Minimum RMSD across references</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rmsd_best_state_index</span></code></p></td>
+<td><p>Computed (PDB)</p></td>
+<td><p>Index of closest reference state</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pdb_id</span></code></p></td>
+<td><p>Metadata</p></td>
+<td><p>From filename (batch export only)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">file_path</span></code></p></td>
+<td><p>Metadata</p></td>
+<td><p>Local PDB path (batch export only)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">conformation</span></code></p></td>
+<td><p>Annotations CSV</p></td>
+<td><p><strong>Provisional label</strong> — see provenance section</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="dependencies-on-person-1-data">
 <h2>Dependencies on Person 1 (data)<a class="headerlink" href="#dependencies-on-person-1-data" title="Link to this heading">¶</a></h2>
@@ -642,6 +772,9 @@ pytest<span class="w"> </span>tests/test_features.py<span class="w"> </span>-v
 <li><a class="reference internal" href="#wait-for-person-1-before-trusting-for-results">Wait for Person 1 before trusting for results</a></li>
 <li><a class="reference internal" href="#regenerating-data-locally">Regenerating data locally</a></li>
 <li><a class="reference internal" href="#division-of-labour-reminder">Division of labour (reminder)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api">API</a><ul>
 <li><a class="reference internal" href="#extract-features-pdb-path"><code class="docutils literal notranslate"><span class="pre">extract_features(pdb_path,</span> <span class="pre">...)</span></code></a></li>
 <li><a class="reference internal" href="#extract-features-batch-pdb-paths-annotations-df-none"><code class="docutils literal notranslate"><span class="pre">extract_features_batch(pdb_paths,</span> <span class="pre">annotations_df=None)</span></code></a></li>
 </ul>
@@ -653,6 +786,7 @@ pytest<span class="w"> </span>tests/test_features.py<span class="w"> </span>-v
 <li><a class="reference internal" href="#orientation-confostate-features-orientation">Orientation (<code class="docutils literal notranslate"><span class="pre">confostate.features.orientation</span></code>)</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#feature-column-manifest">Feature column manifest</a></li>
 <li><a class="reference internal" href="#dependencies-on-person-1-data">Dependencies on Person 1 (data)</a></li>
 <li><a class="reference internal" href="#testing">Testing</a></li>
 <li><a class="reference internal" href="#future-work">Future work</a></li>

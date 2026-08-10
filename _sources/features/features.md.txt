@@ -56,7 +56,7 @@ Each row = one PDB structure. Columns fall into three categories:
 
 | Category | Columns | Status | Source |
 |----------|---------|--------|--------|
-| **Computed features (X)** | `cavity_*`, `domain_*`, `rmsd_*`, `opm_*`, `orientation_principal_axis_*` | **Live computation** | MDAnalysis + SciPy on PDB coordinates from RCSB |
+| **Computed features (X)** | `cavity_*`, `domain_*`, `domain_*_delta_vs_*`, `rmsd_*`, `opm_*`, `orientation_principal_axis_*` | **Live computation** | MDAnalysis + SciPy on PDB coordinates from RCSB |
 | **Label (y)** | `conformation` | **Unverified stub** | Copied from annotations CSV; `conformation_status = literature_estimate` |
 | **Metadata** | `pdb_id`, `file_path` | **Real** | PDB ID list + local file path |
 
@@ -108,6 +108,7 @@ Person 2  →  features (X)              extract_features() / feature vectors CS
 Person 3  →  join X + y, train model   confostate/data/datasets.py, models/
 ```
 
+## API
 
 ### `extract_features(pdb_path, ...)`
 
@@ -152,7 +153,16 @@ Inter-helix distances and angles for LeuT TM helices.
 | `domain_TM1_TM6_distance` | COM distance between TM1 and TM6 |
 | `domain_TM5_TM7_distance` | COM distance between TM5 and TM7 |
 | `domain_TM3_TM10_distance` | COM distance between TM3 and TM10 |
-| `domain_gate_TM1_TM6_distance` | Gate-opening distance (TM1–TM6) |
+| `domain_gate_TM1_TM6_distance` | Gate-opening distance (TM1–TM6) | Computed |
+
+For each reference PDB (`3F3A`, `3F3E`, `3F4J`, `3USI`), delta features are also
+emitted when reference files are available in `reference_dir`:
+
+| Feature pattern | Description | Source |
+|---|---|---|
+| `domain_*_distance_delta_vs_<PDB>` | Distance change vs reference structure | Computed |
+| `domain_*_angle_delta_vs_<PDB>` | Angle change vs reference structure | Computed |
+| `domain_gate_TM1_TM6_distance_delta_vs_<PDB>` | Gate distance change vs reference | Computed |
 
 Helix boundaries are in `LEUT_TM_HELICES`.
 
@@ -184,6 +194,35 @@ available; otherwise estimates tilt/rotation from the structure principal axis.
 | `opm_rotation_angle` | Rotation in membrane plane (°) |
 | `opm_depth` | Centroid depth relative to membrane plane (Å) |
 | `orientation_principal_axis_x/y/z` | Unit vector of first principal component |
+
+## Feature column manifest
+
+Complete list of columns in `extract_features()` output and
+`leu_t_feature_vectors.csv`:
+
+| Column | Source | Notes |
+|--------|--------|-------|
+| `cavity_volume` | Computed (PDB) | Convex hull of binding-pocket atoms |
+| `cavity_accessibility_in` | Computed (PDB) | Inward membrane-side exposure proxy |
+| `cavity_accessibility_out` | Computed (PDB) | Outward membrane-side exposure proxy |
+| `domain_*_distance` | Computed (PDB) | Absolute TM helix COM distances |
+| `domain_*_angle` | Computed (PDB) | Absolute TM helix axis angles |
+| `domain_gate_TM1_TM6_distance` | Computed (PDB) | Gate helix distance |
+| `domain_*_delta_vs_<PDB>` | Computed (PDB) | Change vs reference structure |
+| `opm_tilt_angle` | Computed (PDB) or annotations | OPM CSV used when not `N/A` |
+| `opm_rotation_angle` | Computed (PDB) or annotations | OPM CSV used when not `N/A` |
+| `opm_depth` | Computed (PDB) or annotations | OPM CSV used when not `N/A` |
+| `opm_tm_count` | Annotations only | When provided by Person 1 |
+| `orientation_principal_axis_x/y/z` | Computed (PDB) | Principal axis components |
+| `rmsd_OF_open` | Computed (PDB) | RMSD vs 3F3E |
+| `rmsd_IF_open` | Computed (PDB) | RMSD vs 3F3A |
+| `rmsd_Occluded` | Computed (PDB) | RMSD vs 3F4J |
+| `rmsd_Intermediate` | Computed (PDB) | RMSD vs 3USI |
+| `rmsd_min` | Computed (PDB) | Minimum RMSD across references |
+| `rmsd_best_state_index` | Computed (PDB) | Index of closest reference state |
+| `pdb_id` | Metadata | From filename (batch export only) |
+| `file_path` | Metadata | Local PDB path (batch export only) |
+| `conformation` | Annotations CSV | **Provisional label** — see provenance section |
 
 ## Dependencies on Person 1 (data)
 

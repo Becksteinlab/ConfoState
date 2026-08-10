@@ -276,7 +276,12 @@
     <span class="n">features</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
         <span class="n">extract_cavity_features</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">membrane_normal</span><span class="o">=</span><span class="n">membrane_normal</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">features</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extract_domain_features</span><span class="p">(</span><span class="n">structure</span><span class="p">))</span>
+    <span class="n">features</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="n">extract_domain_features</span><span class="p">(</span>
+            <span class="n">structure</span><span class="p">,</span>
+            <span class="n">reference_dir</span><span class="o">=</span><span class="n">reference_dir</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">pdb_path</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
     <span class="n">features</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
         <span class="n">extract_orientation_features</span><span class="p">(</span>
             <span class="n">structure</span><span class="p">,</span> <span class="n">annotations_row</span><span class="o">=</span><span class="n">annotations_row</span>
