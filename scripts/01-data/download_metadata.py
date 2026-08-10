@@ -10,13 +10,15 @@ struct_file = root / "data" / "protein_families" / "LeuT_transporters.txt"
 
 header_written = False
 
-with struct_file.open(encoding="utf-8") as f, open(
-    "protein_data.csv",
-    "w",
-    newline="",
-    encoding="utf-8",
-) as csv_file:
-
+with (
+    struct_file.open(encoding="utf-8") as f,
+    open(
+        "protein_data.csv",
+        "w",
+        newline="",
+        encoding="utf-8",
+    ) as csv_file,
+):
     writer = None
 
     for line in f:
