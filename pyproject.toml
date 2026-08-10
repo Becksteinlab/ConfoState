@@ -20,7 +20,7 @@ dependencies = [
     "scipy>=1.7.0",
     "requests",
     "openai",
-    "paper-retriever",
+    "pypaperretriever",
     "pymupdf",
 ]
 
