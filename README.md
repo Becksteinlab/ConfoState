@@ -1,4 +1,7 @@
-# ConfoState
+# ConfoState (WARNING — NON-FUNCTIONAL Work-in-progress)
+
+**NOTE: This is an experimental project. It is not working. You're more than welcome to fork it and work on it on your own.**
+
 
 ## Overview
 
