@@ -1,6 +1,5 @@
 """Data loading utilities for ConfoState."""
 
-
 from confostate.data.datasets import (
     build_xy,
     load_dataset,
@@ -15,4 +14,3 @@ __all__ = [
     "load_from_input_dir",
     "train_test_split_dataset",
 ]
-

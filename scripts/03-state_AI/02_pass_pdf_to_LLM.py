@@ -14,22 +14,22 @@ client = OpenAI(
 
 judge_prompt = (
     "You are an amazing sexy brilliant scientist who is helpful in "
-    "summarizing research papers." +
-    "You are very knowledgeable and can provide detailed summaries " +
-    " of complex research. " +
-    "You are aware of the alternating access model including all the"
-    "   different states: " +
-    "Outward-Facing (OF), Inward-Facing (IF), and occluded (OCC) states. " +
-    "In the following paragraphs, can you read the entire the PDF" +
-    " in markdown format" +
-    "and attempt to classify whether the protein as described" +
-    " in the paper is in the" +
-    "Outward-Facing, Inward-Facing, or an occluded state? " +
-    "Please return your answer in a single word:" +
-    " OF, IF, or OCC on one line for " +
-    "easy parsing, and additionally" +
-    " provide a brief explanation for your " +
-    " classification in the next line. "
+    "summarizing research papers."
+    + "You are very knowledgeable and can provide detailed summaries "
+    + " of complex research. "
+    + "You are aware of the alternating access model including all the"
+    "   different states: "
+    + "Outward-Facing (OF), Inward-Facing (IF), and occluded (OCC) states. "
+    + "In the following paragraphs, can you read the entire the PDF"
+    + " in markdown format"
+    + "and attempt to classify whether the protein as described"
+    + " in the paper is in the"
+    + "Outward-Facing, Inward-Facing, or an occluded state? "
+    + "Please return your answer in a single word:"
+    + " OF, IF, or OCC on one line for "
+    + "easy parsing, and additionally"
+    + " provide a brief explanation for your "
+    + " classification in the next line. "
 )
 llm_models = ("kimi-k2-7-code", "gemma4-31b-it", "llama4-scout-17b")
 ##
