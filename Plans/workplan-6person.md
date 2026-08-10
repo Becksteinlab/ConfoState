@@ -53,6 +53,12 @@ ConfoState development split into 6 parallel work streams, each led by one team 
      - retrieve embedded structure and geometric parameters
    - Add columns to CSV: `opm_tm_count`, `opm_tilt_angle`, `opm_rotation_angle`
 
+   - OPM can be installed locally (compile FORTRAN).
+     - license unknown
+     - create a *private* repository
+     - make `immers` executable available
+     - possibly later: Python bindings
+
 3. **Fetch Secondary Structure Data**
    - Binding Site/Ligand from pdb.
    - Secondary Structure from pdb. Examples such as helical bundles and beta sheets.
@@ -95,6 +101,12 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 
 ### Tasks
 
+0. **Define file/data formats for features**
+   - document features (descriptions, identifiers)
+   - document CSV file layouts
+   - document API (eg pandas data frames layouts)
+   - curate documentation on features (stewardship)
+
 1. **Implement cavity/solvent accessibility features**
    - Create `confostate/features/cavity.py`
    - Compute binding site volume and solvent-accessible surface area
@@ -109,6 +121,9 @@ ConfoState development split into 6 parallel work streams, each led by one team 
       2. Extracting Features
          - How many paths?
          - Caliber (Transition Path?)
+
+   Example use of hollow/networx for finding shortes path between binding site and transport
+   site https://github.com/Becksteinlab/TBC1D5-Rab7-NHE6-proton-diffusion-model/tree/main/proton_pathway
 
 2. **Implement domain distance features**
    - Create `confostate/features/domains.py`
@@ -169,6 +184,7 @@ Detailed execution plan: Plans/person3-ml-workplan-2026-07-13.md
 1. **Build dataset loader**
    - Create `confostate/data/datasets.py`
    - Combine annotations CSV, PDB structures, and feature vectors
+   - Implement cleaning and normalization
    - Implement train/test splits
 
 2. **Implement baseline models**
@@ -325,34 +341,42 @@ Not assigned, will figure it out when we have something.
 
 0. Test monitor (pester everyone else to write tests!)
 
-1. **Set up continuous integration (CI)**
+   - branch protection (no force-push)
+
+1. **Maintain build system an dependencies**
+   - update pyproject.toml
+   - build related code (eg OPM)
+   - should work with Python 3.12 - 3.14
+   - each developer should update dependencies in pyproject.toml as needed
+
+2. **Set up continuous integration (CI)**
    - Create `.github/workflows/test.yml`
    - Run tests on push to main/dev
    - Test Python 3.9+ versions
 
-2. **Add linting & code quality**
+3. **Add linting & code quality**
    - Configure Black, Flake8, Pylint in CI
    - Create `.pre-commit` config
 
-3. **Build comprehensive test suite**
+4. **Build comprehensive test suite**
    - Create `tests/` directory with unit and integration tests
    - Aim for >80% code coverage
    - Test fixtures for example structures
 
-4. **Add documentation building**
+5. **Add documentation building**
    - Set up Sphinx or similar for auto-generated docs
    - CI builds docs on each commit
 
-5. **Package versioning & release**
+6. **Package versioning & release**
    - Set up semantic versioning in `pyproject.toml`
    - Create release checklist and GitHub Actions workflow
 
-6. **Data storage & reproducibility**
+7. **Data storage & reproducibility**
    - Document PDB structure download process
    - Create `.gitignore` rules for large files
    - Optional: set up DVC for structure file tracking
 
-7. **Contribution guidelines**
+8. **Contribution guidelines**
    - Create `CONTRIBUTING.md`
    - Code review template, pull request checklist
 

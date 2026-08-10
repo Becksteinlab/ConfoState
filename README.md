@@ -1,4 +1,7 @@
-# ConfoState
+# ConfoState (WARNING — NON-FUNCTIONAL Work-in-progress)
+
+**NOTE: This is an experimental project. It is not working. You're more than welcome to fork it and work on it on your own.**
+
 
 ## Overview
 
@@ -32,5 +35,9 @@ Given the vast amount of structures in databases (primarily ProteinDatabank http
 * Access papers on Pubmed Central https://pmc.ncbi.nlm.nih.gov or preprint servers such as bioRxiv https://www.biorxiv.org/ or arXiv https://arxiv.org/ or Open Access papers at journals.
 
 * We may also want to consider internal repeat symmetries to help with conformational assignment (see DOI 10.1146/annurev-biophys-051013-023008)
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for coding style (Ruff, 79-character lines), pre-commit, and pull-request expectations.
 
 

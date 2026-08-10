@@ -1,5 +1,6 @@
 # Python
 __pycache__/
+.pytest_cache/
 *.py[cod]
 *.pyo
 .venv/
@@ -8,6 +9,13 @@ venv/
 dist/
 build/
 .eggs/
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+
+# Sphinx
+docs/_build/
 
 # Structure files — do not check in; download locally with scripts/download_structures.py
 data/structures/
@@ -20,9 +28,16 @@ data/structures/
 *.ent
 *.ent.gz
 
-# Data outputs (generated files)
-data/annotations/*.csv
-data/annotations/*.json
+# Annotations — stub CSV is local-only until Person 1 verifies (see data/annotations/README.md)
+data/annotations/*
+!data/annotations/README.md
+!data/annotations/leu_t_transporters.csv.example
+
+# Generated feature vectors — run scripts/extract_feature_vectors.py locally
+data/features/
+
+# Downloaded PDBs — fetch with scripts/download_structures.py
+input/
 
 # OS / editor
 .DS_Store
