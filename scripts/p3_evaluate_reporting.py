@@ -13,13 +13,27 @@ from confostate.models.evaluate import evaluate_model, write_evaluation_report
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Evaluate trained model and write report artifacts.")
+    parser = argparse.ArgumentParser(
+        description="Evaluate trained model and write report artifacts."
+    )
     parser.add_argument("--model-path", required=True)
-    parser.add_argument("--test-csv", required=True, help="CSV containing label and feature columns")
+    parser.add_argument(
+        "--test-csv",
+        required=True,
+        help="CSV containing label and feature columns",
+    )
     parser.add_argument("--label-col", default="conformation")
-    parser.add_argument("--drop-cols", nargs="*", default=["pdb_id", "family", "reference", "experimental_method"])
-    parser.add_argument("--report-path", default="docs/reports/phase3-eval-report.md")
-    parser.add_argument("--metrics-json", default="docs/reports/phase3-eval-metrics.json")
+    parser.add_argument(
+        "--drop-cols",
+        nargs="*",
+        default=["pdb_id", "family", "reference", "experimental_method"],
+    )
+    parser.add_argument(
+        "--report-path", default="docs/reports/phase3-eval-report.md"
+    )
+    parser.add_argument(
+        "--metrics-json", default="docs/reports/phase3-eval-metrics.json"
+    )
     return parser.parse_args()
 
 

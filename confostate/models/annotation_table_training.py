@@ -26,7 +26,9 @@ DEFAULT_CATEGORICAL_INPUTS = [
 ]
 
 
-def _prepare_inputs(df: pd.DataFrame, numeric_cols: list[str], categorical_cols: list[str]) -> pd.DataFrame:
+def _prepare_inputs(
+    df: pd.DataFrame, numeric_cols: list[str], categorical_cols: list[str]
+) -> pd.DataFrame:
     prepared = df.copy()
     for col in numeric_cols:
         prepared[col] = pd.to_numeric(prepared[col], errors="coerce")
@@ -51,13 +53,18 @@ def train_from_annotations_table(
         from sklearn.compose import ColumnTransformer
         from sklearn.impute import SimpleImputer
         from sklearn.linear_model import LogisticRegression
-        from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+        from sklearn.metrics import (
+            accuracy_score,
+            classification_report,
+            confusion_matrix,
+        )
         from sklearn.model_selection import train_test_split
         from sklearn.pipeline import Pipeline
         from sklearn.preprocessing import OneHotEncoder
     except ImportError as exc:
         raise ImportError(
-            "scikit-learn and joblib are required. Install with: pip install scikit-learn joblib"
+            "scikit-learn and joblib are required. "
+            "Install with: pip install scikit-learn joblib"
         ) from exc
 
     numeric = numeric_cols or DEFAULT_NUMERIC_INPUTS
@@ -72,14 +79,18 @@ def train_from_annotations_table(
     required = [target_col] + numeric + categorical
     missing = [c for c in required if c not in df.columns]
     if missing:
-        raise ValueError(f"Missing required columns in annotations file: {missing}")
+        raise ValueError(
+            f"Missing required columns in annotations file: {missing}"
+        )
 
     working = _prepare_inputs(df[required], numeric, categorical)
     X = working[numeric + categorical]
     y = working[target_col]
 
     if y.nunique() < 2:
-        raise ValueError("Training needs at least two target classes in the input table")
+        raise ValueError(
+            "Training needs at least two target classes in the input table"
+        )
 
     X_train, X_test, y_train, y_test = train_test_split(
         X,
@@ -91,7 +102,11 @@ def train_from_annotations_table(
 
     preprocessor = ColumnTransformer(
         transformers=[
-            ("num", Pipeline([("imputer", SimpleImputer(strategy="median"))]), numeric),
+            (
+                "num",
+                Pipeline([("imputer", SimpleImputer(strategy="median"))]),
+                numeric,
+            ),
             (
                 "cat",
                 Pipeline(
@@ -137,7 +152,9 @@ def train_from_annotations_table(
         "classification_report": classification_report(
             y_test, y_pred, output_dict=True, zero_division=0
         ),
-        "confusion_matrix": confusion_matrix(y_test, y_pred, labels=labels).tolist(),
+        "confusion_matrix": confusion_matrix(
+            y_test, y_pred, labels=labels
+        ).tolist(),
     }
 
     model_path = Path(model_out)

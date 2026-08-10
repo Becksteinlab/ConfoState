@@ -9,8 +9,12 @@ from confostate.data.datasets import load_dataset, train_test_split_dataset
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Build merged ML dataset and train/test splits.")
-    parser.add_argument("--annotations-csv", default="data/annotations/leu_t_transporters.csv")
+    parser = argparse.ArgumentParser(
+        description="Build merged ML dataset and train/test splits."
+    )
+    parser.add_argument(
+        "--annotations-csv", default="data/annotations/leu_t_transporters.csv"
+    )
     parser.add_argument("--features-csv", required=True)
     parser.add_argument("--family", default=None)
     parser.add_argument("--out-dir", default="data/processed")

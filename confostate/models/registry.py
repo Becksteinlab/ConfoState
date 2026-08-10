@@ -51,11 +51,15 @@ def register_model(
     return entry
 
 
-def get_registered_model(registry_path: str, family: str) -> dict[str, Any] | None:
+def get_registered_model(
+    registry_path: str, family: str
+) -> dict[str, Any] | None:
     """Return latest model entry for a family."""
     path = Path(registry_path)
     registry = _load_registry(path)
-    family_entries = [m for m in registry.get("models", []) if m.get("family") == family]
+    family_entries = [
+        m for m in registry.get("models", []) if m.get("family") == family
+    ]
     if not family_entries:
         return None
     return family_entries[-1]

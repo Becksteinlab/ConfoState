@@ -21,7 +21,9 @@ class DatasetBundle:
     label_column: str = "conformation"
 
 
-def _require_columns(df: pd.DataFrame, required: Iterable[str], name: str) -> None:
+def _require_columns(
+    df: pd.DataFrame, required: Iterable[str], name: str
+) -> None:
     missing = [c for c in required if c not in df.columns]
     if missing:
         raise ValueError(f"{name} is missing required columns: {missing}")
@@ -42,9 +44,13 @@ def load_dataset(
     annotations = pd.read_csv(annotations_csv)
     features = pd.read_csv(features_csv)
 
-    _require_columns(annotations, REQUIRED_ANNOTATION_COLUMNS, "annotations_csv")
+    _require_columns(
+        annotations, REQUIRED_ANNOTATION_COLUMNS, "annotations_csv"
+    )
     _require_columns(features, {key_column}, "features_csv")
-    _require_columns(annotations, {key_column, label_column}, "annotations_csv")
+    _require_columns(
+        annotations, {key_column, label_column}, "annotations_csv"
+    )
 
     annotations = annotations.copy()
     features = features.copy()
@@ -54,14 +60,30 @@ def load_dataset(
 
     if family is not None:
         if "family" not in annotations.columns:
-            raise ValueError("family filter requested, but 'family' is not present in annotations_csv")
-        annotations = annotations[annotations["family"].astype(str) == str(family)]
+            raise ValueError(
+                "family filter requested, but 'family' is not present in "
+                "annotations_csv"
+            )
+        annotations = annotations[
+            annotations["family"].astype(str) == str(family)
+        ]
 
-    merged = annotations.merge(features, on=key_column, how="inner", suffixes=("", "_feature"))
+    merged = annotations.merge(
+        features, on=key_column, how="inner", suffixes=("", "_feature")
+    )
     if merged.empty:
-        raise ValueError("Merged dataset is empty. Verify overlap between annotations and features keys.")
+        raise ValueError(
+            "Merged dataset is empty. Verify overlap between annotations and "
+            "features keys."
+        )
 
-    key_like = {key_column, label_column, "family", "reference", "experimental_method"}
+    key_like = {
+        key_column,
+        label_column,
+        "family",
+        "reference",
+        "experimental_method",
+    }
     feature_columns = [c for c in merged.columns if c not in key_like]
     if not feature_columns:
         raise ValueError("No feature columns found after merge.")
@@ -69,7 +91,11 @@ def load_dataset(
     for col in feature_columns:
         merged[col] = pd.to_numeric(merged[col], errors="raise")
 
-    return DatasetBundle(dataframe=merged, feature_columns=feature_columns, label_column=label_column)
+    return DatasetBundle(
+        dataframe=merged,
+        feature_columns=feature_columns,
+        label_column=label_column,
+    )
 
 
 def train_test_split_dataset(
@@ -79,9 +105,14 @@ def train_test_split_dataset(
     random_state: int = 42,
     stratify: bool = True,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Split dataset into train/test using sklearn if available, fallback otherwise."""
+    """Split dataset into train/test.
+
+    Uses scikit-learn if available and falls back otherwise.
+    """
     if label_column not in df.columns:
-        raise ValueError(f"Label column '{label_column}' not found in dataframe")
+        raise ValueError(
+            f"Label column '{label_column}' not found in dataframe"
+        )
 
     if not 0.0 < test_size < 1.0:
         raise ValueError("test_size must be between 0 and 1")
@@ -106,7 +137,9 @@ def train_test_split_dataset(
         test_idx = set(indices[:n_test].tolist())
 
         test_df = df.iloc[[i for i in range(len(df)) if i in test_idx]].copy()
-        train_df = df.iloc[[i for i in range(len(df)) if i not in test_idx]].copy()
+        train_df = df.iloc[
+            [i for i in range(len(df)) if i not in test_idx]
+        ].copy()
         return train_df.reset_index(drop=True), test_df.reset_index(drop=True)
 
 

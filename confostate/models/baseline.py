@@ -11,17 +11,26 @@ def get_baseline_models(random_state: int = 42) -> dict[str, object]:
         from sklearn.svm import SVC
     except ImportError as exc:
         raise ImportError(
-            "scikit-learn is required for baseline models. Install with: pip install scikit-learn"
+            "scikit-learn is required for baseline models. "
+            "Install with: pip install scikit-learn"
         ) from exc
 
     return {
-        "logreg": LogisticRegression(max_iter=2000, random_state=random_state, class_weight="balanced"),
+        "logreg": LogisticRegression(
+            max_iter=2000, random_state=random_state, class_weight="balanced"
+        ),
         "random_forest": RandomForestClassifier(
             n_estimators=300,
             random_state=random_state,
             class_weight="balanced_subsample",
         ),
-        "svm_rbf": SVC(C=1.0, kernel="rbf", gamma="scale", probability=True, class_weight="balanced"),
+        "svm_rbf": SVC(
+            C=1.0,
+            kernel="rbf",
+            gamma="scale",
+            probability=True,
+            class_weight="balanced",
+        ),
     }
 
 

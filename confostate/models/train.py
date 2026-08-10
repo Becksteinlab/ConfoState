@@ -7,12 +7,18 @@ import pickle
 from pathlib import Path
 from typing import Any
 
-from confostate.data.datasets import build_xy, load_dataset, train_test_split_dataset
+from confostate.data.datasets import (
+    build_xy,
+    load_dataset,
+    train_test_split_dataset,
+)
 from confostate.models.baseline import get_baseline_models, train_model
 from confostate.models.evaluate import evaluate_model
 
 
-def save_model_artifact(model: object, out_dir: str, metadata: dict[str, Any]) -> tuple[str, str]:
+def save_model_artifact(
+    model: object, out_dir: str, metadata: dict[str, Any]
+) -> tuple[str, str]:
     """Save model pickle and metadata JSON and return paths."""
     output = Path(out_dir)
     output.mkdir(parents=True, exist_ok=True)
@@ -37,7 +43,11 @@ def run_training(
     random_state: int = 42,
 ) -> dict[str, Any]:
     """Run a train/eval cycle for a selected baseline model."""
-    bundle = load_dataset(annotations_csv=annotations_csv, features_csv=features_csv, family=family)
+    bundle = load_dataset(
+        annotations_csv=annotations_csv,
+        features_csv=features_csv,
+        family=family,
+    )
     train_df, test_df = train_test_split_dataset(
         bundle.dataframe,
         label_column=bundle.label_column,
@@ -46,13 +56,19 @@ def run_training(
         stratify=True,
     )
 
-    X_train, y_train = build_xy(train_df, bundle.feature_columns, label_column=bundle.label_column)
-    X_test, y_test = build_xy(test_df, bundle.feature_columns, label_column=bundle.label_column)
+    X_train, y_train = build_xy(
+        train_df, bundle.feature_columns, label_column=bundle.label_column
+    )
+    X_test, y_test = build_xy(
+        test_df, bundle.feature_columns, label_column=bundle.label_column
+    )
 
     models = get_baseline_models(random_state=random_state)
     if model_name not in models:
         available = ", ".join(sorted(models))
-        raise ValueError(f"Unknown model '{model_name}'. Available: {available}")
+        raise ValueError(
+            f"Unknown model '{model_name}'. Available: {available}"
+        )
 
     model = train_model(models[model_name], X_train, y_train)
     metrics = evaluate_model(model, X_test, y_test)

@@ -5,11 +5,17 @@ from __future__ import annotations
 import argparse
 import json
 
-from confostate.models.registry import get_registered_model, list_registered_models, register_model
+from confostate.models.registry import (
+    get_registered_model,
+    list_registered_models,
+    register_model,
+)
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Register and inspect model artifacts.")
+    parser = argparse.ArgumentParser(
+        description="Register and inspect model artifacts."
+    )
     parser.add_argument("--registry-path", default="data/models/registry.json")
     parser.add_argument("--family", required=True)
     parser.add_argument("--model-name", required=True)

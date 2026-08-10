@@ -9,7 +9,9 @@ from __future__ import annotations
 
 import argparse
 
-from confostate.models.annotation_table_training import train_from_annotations_table
+from confostate.models.annotation_table_training import (
+    train_from_annotations_table,
+)
 
 DEFAULT_ANNOTATIONS = "data/annotations/leu_t_transporters.csv.example"
 DEFAULT_MODEL_OUT = "data/models/annotations_baseline_logreg.joblib"
@@ -67,7 +69,10 @@ def main() -> None:
         random_state=args.random_state,
     )
 
-    print(f"Trained on {metrics['n_train']} rows, tested on {metrics['n_test']} rows")
+    print(
+        "Trained on "
+        f"{metrics['n_train']} rows, tested on {metrics['n_test']} rows"
+    )
     print(f"Accuracy: {metrics['accuracy']:.4f}")
     print(f"Model: {args.model_out}")
     print(f"Metrics: {args.metrics_out}")

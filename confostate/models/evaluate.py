@@ -8,8 +8,13 @@ from pathlib import Path
 import numpy as np
 
 
-def evaluate_model(model, X_test, y_test, labels: list[str] | None = None) -> dict:
-    """Compute standard classification metrics and return a serializable dictionary."""
+def evaluate_model(
+    model, X_test, y_test, labels: list[str] | None = None
+) -> dict:
+    """Compute standard classification metrics.
+
+    Returns a serializable dictionary.
+    """
     try:
         from sklearn.metrics import (
             accuracy_score,
@@ -19,7 +24,8 @@ def evaluate_model(model, X_test, y_test, labels: list[str] | None = None) -> di
         )
     except ImportError as exc:
         raise ImportError(
-            "scikit-learn is required for evaluation. Install with: pip install scikit-learn"
+            "scikit-learn is required for evaluation. "
+            "Install with: pip install scikit-learn"
         ) from exc
 
     y_pred = model.predict(X_test)
@@ -34,7 +40,9 @@ def evaluate_model(model, X_test, y_test, labels: list[str] | None = None) -> di
     )
 
     cm = confusion_matrix(y_test, y_pred, labels=used_labels)
-    cls_report = classification_report(y_test, y_pred, labels=used_labels, output_dict=True, zero_division=0)
+    cls_report = classification_report(
+        y_test, y_pred, labels=used_labels, output_dict=True, zero_division=0
+    )
 
     metrics = {
         "accuracy": accuracy,
@@ -60,7 +68,11 @@ def evaluate_model(model, X_test, y_test, labels: list[str] | None = None) -> di
     return metrics
 
 
-def write_evaluation_report(metrics: dict, output_path: str, title: str = "ConfoState Evaluation Report") -> None:
+def write_evaluation_report(
+    metrics: dict,
+    output_path: str,
+    title: str = "ConfoState Evaluation Report",
+) -> None:
     """Write a compact markdown report from metrics."""
     out = Path(output_path)
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -75,13 +87,31 @@ def write_evaluation_report(metrics: dict, output_path: str, title: str = "Confo
     if "mean_confidence" in metrics:
         lines.append(f"- Mean confidence: {metrics['mean_confidence']:.4f}")
 
-    lines.extend(["", "## Per-label Metrics", "", "| Label | Precision | Recall | F1 | Support |", "|---|---:|---:|---:|---:|"])
+    lines.extend(
+        [
+            "",
+            "## Per-label Metrics",
+            "",
+            "| Label | Precision | Recall | F1 | Support |",
+            "|---|---:|---:|---:|---:|",
+        ]
+    )
 
     for label, m in metrics.get("per_label", {}).items():
         lines.append(
-            f"| {label} | {m['precision']:.3f} | {m['recall']:.3f} | {m['f1']:.3f} | {m['support']} |"
+            f"| {label} | {m['precision']:.3f} | {m['recall']:.3f} | "
+            f"{m['f1']:.3f} | {m['support']} |"
         )
 
-    lines.extend(["", "## Confusion Matrix", "", "```json", json.dumps(metrics.get("confusion_matrix", []), indent=2), "```"])
+    lines.extend(
+        [
+            "",
+            "## Confusion Matrix",
+            "",
+            "```json",
+            json.dumps(metrics.get("confusion_matrix", []), indent=2),
+            "```",
+        ]
+    )
 
     out.write_text("\n".join(lines), encoding="utf-8")

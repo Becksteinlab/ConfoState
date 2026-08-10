@@ -12,8 +12,12 @@ DEFAULT_MODELS = ["logreg", "random_forest", "svm_rbf"]
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run baseline training pipeline across selected models.")
-    parser.add_argument("--annotations-csv", default="data/annotations/leu_t_transporters.csv")
+    parser = argparse.ArgumentParser(
+        description="Run baseline training pipeline across selected models."
+    )
+    parser.add_argument(
+        "--annotations-csv", default="data/annotations/leu_t_transporters.csv"
+    )
     parser.add_argument("--features-csv", required=True)
     parser.add_argument("--family", default=None)
     parser.add_argument("--models", nargs="+", default=DEFAULT_MODELS)
