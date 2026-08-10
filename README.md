@@ -1,5 +1,9 @@
 # ConfoState (WARNING — NON-FUNCTIONAL Work-in-progress)
 
+[![Tests](https://github.com/Becksteinlab/ConfoState/actions/workflows/tests.yml/badge.svg)](https://github.com/Becksteinlab/ConfoState/actions/workflows/tests.yml)
+[![Docs](https://readthedocs.org/projects/confostate/badge/?version=latest)](https://confostate.readthedocs.io/en/latest/?badge=latest)
+[![codecov](https://codecov.io/gh/Becksteinlab/ConfoState/branch/main/graph/badge.svg)](https://codecov.io/gh/Becksteinlab/ConfoState)
+
 **NOTE: This is an experimental project. It is not working. You're more than welcome to fork it and work on it on your own.**
 
 
