@@ -18,7 +18,8 @@ dependencies = [
     "numpy",
     "requests",
     "openai",
-    "paper-retriever"
+    "paper-retriever",
+    "pymupdf"
 ]
 
 [project.optional-dependencies]
