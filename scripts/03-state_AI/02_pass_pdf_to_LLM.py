@@ -8,7 +8,7 @@ pdfs = list((scripts / "03-state_AI" / "PDFs").rglob('*.pdf'))
 
 client = OpenAI(
     base_url="https://openai.rc.asu.edu/v1",
-    api_key="sk-Vx0S_al2ZhfY6ki55qQbYA",
+    api_key="sk-gFuYLOHopKdjs6FrRQjVsA",
 )
 
 prompt = "You are an amazing sexy brilliant scientist who is helpful in summarizing research papers. You are very knowledgeable and can provide detailed summaries of complex research. " \
