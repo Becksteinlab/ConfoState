@@ -34,9 +34,7 @@ class StructureData:
     def ca_atoms(self) -> AtomGroup:
         """Alpha-carbon atoms for the primary chain."""
         chain = self.primary_chain_id
-        ag = self.universe.select_atoms(
-            f"protein and chainID {chain} and name CA"
-        )
+        ag = self.universe.select_atoms(f"protein and chainID {chain} and name CA")
         if len(ag) == 0:
             ag = self.universe.select_atoms(f"segid {chain} and name CA")
         return ag
@@ -55,8 +53,7 @@ class StructureData:
         chain = self.primary_chain_id
         if heavy_atoms:
             sel = (
-                f"protein and chainID {chain} "
-                f"and resid {resid_str} and not name H*"
+                f"protein and chainID {chain} " f"and resid {resid_str} and not name H*"
             )
             return self.universe.select_atoms(sel)
         return self.ca_atoms.select_atoms(f"resid {resid_str}")

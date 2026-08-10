@@ -82,9 +82,7 @@ def extract_cavity_features(
     if membrane_normal is None:
         membrane_normal = np.array([0.0, 0.0, 1.0])
 
-    binding_atoms = structure.select_residues(
-        binding_residues, heavy_atoms=True
-    )
+    binding_atoms = structure.select_residues(binding_residues, heavy_atoms=True)
     if len(binding_atoms) == 0:
         binding_atoms = structure.select_residues(binding_residues)
 

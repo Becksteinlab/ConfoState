@@ -39,7 +39,9 @@ def extract_features(
 
     features.update(extract_cavity_features(structure, membrane_normal=membrane_normal))
     features.update(extract_domain_features(structure))
-    features.update(extract_orientation_features(structure, annotations_row=annotations_row))
+    features.update(
+        extract_orientation_features(structure, annotations_row=annotations_row)
+    )
 
     if include_rmsd:
         try:
@@ -66,9 +68,7 @@ def extract_features_batch(
         pdb_id = Path(pdb_path).stem.upper()
         row_data: Optional[dict[str, Any]] = None
         if annotations_df is not None and "pdb_id" in annotations_df.columns:
-            matches = annotations_df[
-                annotations_df["pdb_id"].str.upper() == pdb_id
-            ]
+            matches = annotations_df[annotations_df["pdb_id"].str.upper() == pdb_id]
             if len(matches) > 0:
                 row_data = matches.iloc[0].to_dict()
 

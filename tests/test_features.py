@@ -14,8 +14,7 @@ from confostate.features.rmsd import extract_rmsd_features
 
 INPUT_DIR = Path(__file__).resolve().parent.parent / "input"
 ANNOTATIONS = (
-    Path(__file__).resolve().parent.parent
-    / "data/annotations/leu_t_transporters.csv"
+    Path(__file__).resolve().parent.parent / "data/annotations/leu_t_transporters.csv"
 )
 
 
@@ -23,9 +22,7 @@ ANNOTATIONS = (
 def sample_pdb() -> str:
     path = INPUT_DIR / "3F3E.pdb"
     if not path.exists():
-        pytest.skip(
-            "Sample PDB not found. Run scripts/download_structures.py first."
-        )
+        pytest.skip("Sample PDB not found. Run scripts/download_structures.py first.")
     return str(path)
 
 
