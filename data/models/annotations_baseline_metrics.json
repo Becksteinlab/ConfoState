@@ -1,0 +1,109 @@
+{
+  "annotations_csv": "data/annotations/leu_t_transporters.csv.example",
+  "input_columns": [
+    "resolution_angstrom",
+    "year",
+    "opm_tilt_angle",
+    "opm_rotation_angle",
+    "opm_depth",
+    "opm_tm_count",
+    "family",
+    "conformation_status",
+    "reference",
+    "experimental_method",
+    "metadata_status",
+    "opm_status"
+  ],
+  "numeric_columns": [
+    "resolution_angstrom",
+    "year",
+    "opm_tilt_angle",
+    "opm_rotation_angle",
+    "opm_depth",
+    "opm_tm_count"
+  ],
+  "categorical_columns": [
+    "family",
+    "conformation_status",
+    "reference",
+    "experimental_method",
+    "metadata_status",
+    "opm_status"
+  ],
+  "target_column": "conformation",
+  "n_total": 25,
+  "n_train": 20,
+  "n_test": 5,
+  "labels": [
+    "IF_open",
+    "Intermediate",
+    "OF_open",
+    "Occluded"
+  ],
+  "accuracy": 0.2,
+  "classification_report": {
+    "IF_open": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 2.0
+    },
+    "Intermediate": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "OF_open": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1-score": 0.6666666666666666,
+      "support": 1.0
+    },
+    "Occluded": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 1.0
+    },
+    "accuracy": 0.2,
+    "macro avg": {
+      "precision": 0.125,
+      "recall": 0.25,
+      "f1-score": 0.16666666666666666,
+      "support": 5.0
+    },
+    "weighted avg": {
+      "precision": 0.1,
+      "recall": 0.2,
+      "f1-score": 0.13333333333333333,
+      "support": 5.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0
+    ]
+  ]
+}
