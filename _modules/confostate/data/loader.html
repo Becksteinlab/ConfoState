@@ -253,42 +253,31 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    csv_path : str</span>
-<span class="sd">        Path to the CSV file containing annotations</span>
+<span class="sd">        Path to the CSV file containing annotations.</span>
 <span class="sd">    family : str, optional</span>
-<span class="sd">        Filter by protein family if provided</span>
+<span class="sd">        Filter by protein family if provided.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    pd.DataFrame</span>
-<span class="sd">        DataFrame with columns: pdb_id, conformation, reference,</span>
-<span class="sd">        experimental_method</span>
+<span class="sd">        DataFrame with annotation columns from the CSV file.</span>
 
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
 <span class="sd">    FileNotFoundError</span>
-<span class="sd">        If the CSV file does not exist</span>
-
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; df = load_annotations(&quot;data/annotations/leu_t_transporters.csv&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; print(df.head())</span>
-<span class="sd">    &gt;&gt;&gt;</span>
-<span class="sd">    &gt;&gt;&gt; # Filter by family</span>
-<span class="sd">    &gt;&gt;&gt; df = load_annotations(</span>
-<span class="sd">    ...     &quot;data/annotations/leu_t_transporters.csv&quot;, family=&quot;LeuT&quot;</span>
-<span class="sd">    ... )</span>
+<span class="sd">        If the CSV file does not exist.</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If required columns are missing.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">csv_path</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Annotations file not found: </span><span class="si">{</span><span class="n">csv_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">)</span>
 
-    <span class="c1"># Validate required columns</span>
     <span class="n">required_cols</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;pdb_id&quot;</span><span class="p">,</span> <span class="s2">&quot;conformation&quot;</span><span class="p">}</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">required_cols</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CSV must contain columns: </span><span class="si">{</span><span class="n">required_cols</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Filter by family if requested</span>
     <span class="k">if</span> <span class="n">family</span> <span class="ow">and</span> <span class="s2">&quot;family&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;family&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">family</span><span class="p">]</span>
 
@@ -305,17 +294,12 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    input_dir : str</span>
-<span class="sd">        Path to directory containing .pdb files</span>
+<span class="sd">        Path to directory containing .pdb files.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    pd.DataFrame</span>
-<span class="sd">        DataFrame with pdb_id and file_path for each .pdb file found</span>
-
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; df = load_from_input_dir(&quot;./input&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; print(df)</span>
+<span class="sd">        DataFrame with pdb_id and file_path for each .pdb file found.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pdb_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">input_dir</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.pdb&quot;</span><span class="p">))</span>
 
