@@ -49,7 +49,9 @@ def main() -> None:
 
     merged = annotations.merge(structures, on="pdb_id", how="inner")
     if len(merged) == 0:
-        raise SystemExit("No overlap between annotations and downloaded PDB files.")
+        raise SystemExit(
+            "No overlap between annotations and downloaded PDB files."
+        )
 
     print(f"Extracting features for {len(merged)} structures...")
     df = extract_features_batch(

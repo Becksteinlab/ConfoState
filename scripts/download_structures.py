@@ -49,7 +49,9 @@ def download_pdb(code: str, output_dir: str, overwrite: bool = False) -> bool:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Download PDB files from RCSB.")
+    parser = argparse.ArgumentParser(
+        description="Download PDB files from RCSB."
+    )
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
         "--codes-file",

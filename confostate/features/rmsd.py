@@ -91,10 +91,14 @@ def extract_rmsd_features(
         features[f"rmsd_{state}"] = float(rmsd_val)
         rmsd_values.append(float(rmsd_val))
 
-    features["rmsd_min"] = float(min(rmsd_values)) if rmsd_values else float("nan")
+    features["rmsd_min"] = (
+        float(min(rmsd_values)) if rmsd_values else float("nan")
+    )
     if rmsd_values:
         best_state = min(refs.keys(), key=lambda s: features[f"rmsd_{s}"])
-        features["rmsd_best_state_index"] = float(list(refs.keys()).index(best_state))
+        features["rmsd_best_state_index"] = float(
+            list(refs.keys()).index(best_state)
+        )
     else:
         features["rmsd_best_state_index"] = float("nan")
 

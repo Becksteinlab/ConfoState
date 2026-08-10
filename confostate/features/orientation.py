@@ -36,11 +36,15 @@ def _maybe_float(value: Any) -> Optional[float]:
         return None
 
 
-def _tilt_angle(protein_axis: np.ndarray, membrane_normal: np.ndarray) -> float:
+def _tilt_angle(
+    protein_axis: np.ndarray, membrane_normal: np.ndarray
+) -> float:
     return angle_between_vectors(protein_axis, membrane_normal)
 
 
-def _rotation_angle(protein_axis: np.ndarray, membrane_normal: np.ndarray) -> float:
+def _rotation_angle(
+    protein_axis: np.ndarray, membrane_normal: np.ndarray
+) -> float:
     normal = membrane_normal / np.linalg.norm(membrane_normal)
     projected = protein_axis - np.dot(protein_axis, normal) * normal
     proj_norm = np.linalg.norm(projected)
@@ -64,7 +68,9 @@ def _rotation_angle(protein_axis: np.ndarray, membrane_normal: np.ndarray) -> fl
     return angle
 
 
-def _membrane_depth(structure: StructureData, membrane_normal: np.ndarray) -> float:
+def _membrane_depth(
+    structure: StructureData, membrane_normal: np.ndarray
+) -> float:
     normal = membrane_normal / np.linalg.norm(membrane_normal)
     centroid = structure.ca_atoms.center_of_mass()
     return float(abs(np.dot(centroid, normal)))

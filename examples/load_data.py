@@ -30,7 +30,9 @@ def main():
 
         print("\n   First 5 entries:")
         print(
-            df_annot[["pdb_id", "conformation", "experimental_method", "year"]].head()
+            df_annot[
+                ["pdb_id", "conformation", "experimental_method", "year"]
+            ].head()
         )
     else:
         print(f"   ERROR: File not found: {annotations_path}")

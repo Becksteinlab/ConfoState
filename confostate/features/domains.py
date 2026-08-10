@@ -14,7 +14,10 @@ from confostate.features._structure import (
     load_structure,
     pairwise_distance,
 )
-from confostate.features.rmsd import LEUT_REFERENCE_STRUCTURES, _resolve_reference_path
+from confostate.features.rmsd import (
+    LEUT_REFERENCE_STRUCTURES,
+    _resolve_reference_path,
+)
 
 LEUT_TM_HELICES: dict[str, tuple[int, int]] = {
     "TM1": (22, 52),
@@ -108,7 +111,9 @@ def _domain_deltas(
             continue
 
         ref_structure = load_structure(str(ref_path), pdb_id=ref_pdb_id)
-        ref_features = _domain_geometry(ref_structure, tm_helices, domain_pairs)
+        ref_features = _domain_geometry(
+            ref_structure, tm_helices, domain_pairs
+        )
 
         for key in _DOMAIN_METRIC_KEYS:
             if key not in base_features or key not in ref_features:
@@ -118,7 +123,9 @@ def _domain_deltas(
             if np.isnan(base_val) or np.isnan(ref_val):
                 deltas[f"{key}_delta_vs_{ref_pdb_id}"] = float("nan")
             else:
-                deltas[f"{key}_delta_vs_{ref_pdb_id}"] = float(base_val - ref_val)
+                deltas[f"{key}_delta_vs_{ref_pdb_id}"] = float(
+                    base_val - ref_val
+                )
 
     return deltas
 
@@ -132,10 +139,10 @@ def extract_domain_features(
     include_deltas: bool = True,
 ) -> dict[str, float]:
     """
-    Compute pairwise helix COM distances, inter-helix angles, and optional deltas.
+    Compute pairwise helix COM distances, angles, and optional deltas.
 
-    When ``reference_dir`` is set, also returns deltas vs each curated reference
-    PDB (same references as ``rmsd.py``), e.g.
+    When ``reference_dir`` is set, also returns deltas vs each curated
+    reference PDB (same references as ``rmsd.py``), e.g.
     ``domain_TM1_TM7_distance_delta_vs_3F3E``.
     """
     helices = tm_helices or LEUT_TM_HELICES
@@ -144,7 +151,9 @@ def extract_domain_features(
     if include_deltas and reference_dir:
         refs = reference_structures or LEUT_REFERENCE_STRUCTURES
         features.update(
-            _domain_deltas(features, reference_dir, refs, helices, domain_pairs)
+            _domain_deltas(
+                features, reference_dir, refs, helices, domain_pairs
+            )
         )
 
     return features

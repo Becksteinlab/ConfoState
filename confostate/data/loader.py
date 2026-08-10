@@ -7,7 +7,9 @@ from typing import Optional
 import pandas as pd
 
 
-def load_annotations(csv_path: str, family: Optional[str] = None) -> pd.DataFrame:
+def load_annotations(
+    csv_path: str, family: Optional[str] = None
+) -> pd.DataFrame:
     """
     Load structure annotations from a CSV file.
 
@@ -80,6 +82,8 @@ def load_from_input_dir(input_dir: str = "./input") -> pd.DataFrame:
     data = []
     for pdb_file in sorted(pdb_files):
         pdb_id = pdb_file.stem.upper()
-        data.append({"pdb_id": pdb_id, "file_path": str(pdb_file), "file_exists": True})
+        data.append(
+            {"pdb_id": pdb_id, "file_path": str(pdb_file), "file_exists": True}
+        )
 
     return pd.DataFrame(data)
