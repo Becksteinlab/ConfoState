@@ -1,0 +1,26 @@
+rcsb_id,experimental_method,resolution,deposit_date,title,pubmed,doi
+3F3A,X-ray,[2.0],2008-10-30,Crystal Structure of LeuT bound to L-Tryptophan and Sodium,19074341,10.1126/science.1166777
+3F3C,X-ray,[2.1],2008-10-30,Crystal structure of LeuT bound to 4-Fluoro-L-Phenylalanine and sodium,19074341,10.1126/science.1166777
+3F3D,X-ray,[2.3],2008-10-30,Crystal structure of LeuT bound to L-Methionine and sodium,19074341,10.1126/science.1166777
+3F3E,X-ray,[1.8],2008-10-30,Crystal structure of LeuT bound to L-leucine (30 mM) and sodium,19074341,10.1126/science.1166777
+3F4I,X-ray,[1.95],2008-10-31,Crystal Structure of LeuT bound to L-selenomethionine and sodium,19074341,10.1126/science.1166777
+3F4J,X-ray,[2.15],2008-10-31,Crystal structure of LeuT bound to glycine and sodium,19074341,10.1126/science.1166777
+3GJC,X-ray,[2.8],2009-03-08,Crystal Structure of the E290S mutant of LeuT with bound OG,19307590,10.1073/pnas.0811322106
+3GJD,X-ray,[2.0],2009-03-08,Crystal Structure of LeuT with bound OG,19307590,10.1073/pnas.0811322106
+3MPN,X-ray,[2.25],2010-04-27,F177R1 mutant of LeuT,20964375,10.1021/bi101148w
+3MPQ,X-ray,[2.25],2010-04-27,I204R1 mutant of LeuT,20964375,10.1021/bi101148w
+3QS4,X-ray,[2.631],2011-02-19,Crystal structure of LeuT mutant F259V bound to sodium and L-tryptophan,21952050,10.1038/emboj.2011.353
+3QS5,X-ray,[2.6],2011-02-19,Crystal structure of LeuT mutant I359Q bound to sodium and L-tryptophan,21952050,10.1038/emboj.2011.353
+3QS6,X-ray,[2.801],2011-02-19,"Crystal structure of LeuT mutant F259V,I359Q bound to sodium and L-tryptophan",21952050,10.1038/emboj.2011.353
+3TT1,X-ray,[3.099],2011-09-13,Crystal Structure of LeuT in the outward-open conformation in complex with Fab,22230955,10.1038/nature10737
+3TT3,X-ray,[3.22],2011-09-13,Crystal Structure of LeuT in the inward-open conformation in complex with Fab,22230955,10.1038/nature10737
+3TU0,X-ray,[2.994],2011-09-15,"Crystal structure of T355V, S354A, K288A LeuT mutant in complex with alanine and sodium",22230955,10.1038/nature10737
+3USI,X-ray,[3.106],2011-11-23,Crystal structure of LeuT bound to L-leucine in space group P2 from lipid bicelles,22245965,10.1038/nsmb.2215
+3USL,X-ray,[2.71],2011-11-23,Crystal Structure of LeuT bound to L-selenomethionine in space group C2 from lipid bicelles,22245965,10.1038/nsmb.2215
+3USM,X-ray,[3.008],2011-11-23,Crystal Structure of LeuT bound to L-selenomethionine in space group C2 from lipid bicelles (collected at 1.2 A),22245965,10.1038/nsmb.2215
+3USO,X-ray,[4.5],2011-11-23,Crystal structure of LeuT bound to L-selenomethionine in space group P21212 from lipid bicelles,22245965,10.1038/nsmb.2215
+3USP,X-ray,[2.1],2011-11-23,Crystal structure of LeuT in heptyl-beta-D-Selenoglucoside,22245965,10.1038/nsmb.2215
+5JAE,X-ray,[2.5],2016-04-12,"LeuT in the outward-oriented, Na+-free return state, P21 form at pH 6.5",27221344,10.1038/ncomms11673
+5JAF,X-ray,[3.021],2016-04-12,"LeuT Na+-free Return State, C2 form at pH 5",27221344,10.1038/ncomms11673
+5JAG,X-ray,[2.58],2016-04-12,"LeuT T354H mutant in the outward-oriented, Na+-free Return State",27221344,10.1038/ncomms11673
+6XWM,X-ray,[2.6],2020-01-24,Mechanism of substrate release in neurotransmitter:sodium symporters: the structure of LeuT in an inward-facing occluded conformation,32081981,10.1038/s41467-020-14735-w

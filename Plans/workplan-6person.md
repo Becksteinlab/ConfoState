@@ -34,19 +34,19 @@ ConfoState development split into 6 parallel work streams, each led by one team 
 ### Tasks
 
 1. **Verify and curate LeuT annotations**
-   - Cross-check each of the 25 PDB entries in `data/annotations/leu_t_transporters.csv`
-   - Fetch authoritative metadata from RCSB API (resolution, experimental method, release date, DOI)
-      - generate code to get metadata
-      - should become re-usable
-   - Verify conformational state labels against primary literature
+   - Cross-check each of the 25 PDB entries in `data/annotations/leu_t_transporters.csv` (ok)
+   - Fetch authoritative metadata from RCSB API (resolution, experimental method, release date, DOI) (ok)
+      - generate code to get metadata (ok)
+      - should become re-usable (ok)
+   - Verify conformational state labels against primary literature (idk -- is hard - no metadata)
       - initially manually
       - look into automating!
       - develop a vocabulary of state descriptors (use literature!)
-   - Add DOI and PubMed IDs to the reference column
+   - Add DOI and PubMed IDs to the reference column (ok)
      - automate
 
 2. **Fetch membrane orientations from OPM**
-   - For each structure, retrieve orientation from OPM database or submit calculation job
+   - For each structure, retrieve orientation from OPM database or submit calculation job (currently working)
      - automate: function to retrieve OPM structure for 
        - either given PDB ID or
        - **structure in PDB format** (may involve waiting for OPM server to process)
@@ -60,11 +60,17 @@ ConfoState development split into 6 parallel work streams, each led by one team 
      - possibly later: Python bindings
 
 3. **Fetch Secondary Structure Data**
-   - Binding Site/Ligand from pdb.
+   - Binding Site/Ligand from pdb. ()
    - Secondary Structure from pdb. Examples such as helical bundles and beta sheets.
    - Different structural domains such as scaffold and transport domains. This would differ on a per family basis. READ PAPERS!!!!
 
-3. **Build data validation pipeline**
+# Random idea use an LLM to classify state (https://docs.rc.asu.edu/ai/api/)
+# Feed conclusion and abtract to LLM to get info
+#
+# https://docs.rc.asu.edu/voyager-accounts/
+# "No-cost LLM API access is available to all users with an ASURITE username. See how to request a Non-HPC Account."
+# Leah is cool and Belgium sucks 
+3. **Build data validation pipeline** (idk -- is hard - no metadata)
    - **Document the file format!!!!** (manually check!)
    - Create `confostate/data/validators.py` with schema checks for annotations CSV
      - check that the CSV is complete

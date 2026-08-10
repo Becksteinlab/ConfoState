@@ -1,0 +1,15 @@
+LLM Model kimi-k2-7-code:
+
+ OF
+The paper primarily describes a substrate-free, Na⁺-bound LeuT mutant in an outward-open (OF) conformation; it also reports a separate apo LeuT mutant in an inward-open (IF) conformation.
+
+LLM Model gemma4-31b-it:
+
+OF/IF
+The paper describes two distinct crystal structures of LeuT: one in an outward-open (OF) state and one in an inward-open (IF) state.
+
+LLM Model llama4-scout-17b:
+
+OCC 
+The protein is in the occluded state because the substrate and sodium ions are bound, and the gates are closed, which is a hallmark of the occluded state. This state is characterized by the closure of both the extracellular and intracellular gates, which prevents the substrate and ions from being released or bound.
+

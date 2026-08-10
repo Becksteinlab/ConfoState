@@ -1,0 +1,15 @@
+LLM Model kimi-k2-7-code:
+
+ OCC
+The paper describes LeuT in an outward-oriented, Na⁺/substrate-free return state in which Leu25 occupies the S1 site and Glu290 is buried, characterizing it as a proton-occluded (H⁺-occluded) conformation rather than an open outward-facing or inward-facing state.
+
+LLM Model gemma4-31b-it:
+
+OCC
+The paper describes the protein in an "outward-oriented, $\text{Na}^+$- and substrate-free state likely to be $\text{H}^+$-occluded," specifically identifying it as an "occluded return state" where Leu25 rotates into the substrate-binding pocket to act as a gatekeeper.
+
+LLM Model llama4-scout-17b:
+
+OCC
+The protein is in the occluded state as the substrate-binding site is occupied by Leu25, and Glu290 is protonated and occluded from the extracellular environment, indicating a functionally occluded return step of H+ counter-transport.
+
