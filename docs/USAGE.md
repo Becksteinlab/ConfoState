@@ -67,7 +67,45 @@ Pre-curated PDB code lists live in `data/protein_families/`:
 
 ## 5. Train and evaluate a classifier
 
-*(To be documented as model training workflows are developed.)*
+Person 3 outline scripts are available to scaffold ML workflows:
+
+    python scripts/p3_dataset_loader.py \
+        --features-csv data/features/leut_features.csv \
+        --out-dir data/processed
+
+    python scripts/p3_baseline_models.py \
+        --features-csv data/features/leut_features.csv \
+        --model logreg \
+        --out-dir data/models/leut/logreg
+
+    python scripts/p3_training_pipeline.py \
+        --features-csv data/features/leut_features.csv \
+        --models logreg random_forest svm_rbf \
+        --out-dir data/models
+
+    python scripts/p3_evaluate_reporting.py \
+        --model-path data/models/leut/logreg/model.pkl \
+        --test-csv data/processed/test_split.csv \
+        --report-path docs/reports/phase3-eval-report.md
+
+    python scripts/p3_model_registry.py \
+        --family LeuT \
+        --model-name logreg \
+        --artifact-path data/models/leut/logreg/model.pkl \
+        --metrics-json docs/reports/phase3-eval-metrics.json \
+        --show-latest
+
+Train a baseline classifier from the annotation-table inputs defined in
+`data/annotations/leu_t_transporters.csv.example`:
+
+    python scripts/train_annotation_model.py
+
+Use a real annotation file (same schema) once available:
+
+    python scripts/train_annotation_model.py \
+        --annotations data/annotations/leu_t_transporters.csv \
+        --model-out data/models/annotations_baseline_logreg.joblib \
+        --metrics-out data/models/annotations_baseline_metrics.json
 
 ---
 

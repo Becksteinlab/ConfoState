@@ -43,10 +43,32 @@ def test_cavity_features(structure):
 
 
 def test_domain_features(structure):
-    features = extract_domain_features(structure)
+    features = extract_domain_features(structure, reference_dir=str(INPUT_DIR))
     assert "domain_TM1_TM7_distance" in features
     assert features["domain_TM1_TM7_distance"] > 0
     assert 0 <= features["domain_TM1_TM7_angle"] <= 180
+
+
+def test_domain_delta_features_self(structure):
+    """Delta vs same structure (3F3E) should be approximately zero."""
+    if not (INPUT_DIR / "3F3E.pdb").exists():
+        pytest.skip("Reference PDB 3F3E not downloaded")
+    features = extract_domain_features(structure, reference_dir=str(INPUT_DIR))
+    key = "domain_TM1_TM7_distance_delta_vs_3F3E"
+    assert key in features
+    assert features[key] == pytest.approx(0.0, abs=0.01)
+
+
+def test_domain_delta_features_different_conformation():
+    """IF-open 3F3A should have non-zero delta vs OF-open reference 3F3E."""
+    path = INPUT_DIR / "3F3A.pdb"
+    if not path.exists() or not (INPUT_DIR / "3F3E.pdb").exists():
+        pytest.skip("Reference PDBs not downloaded")
+    structure = load_structure(str(path), pdb_id="3F3A")
+    features = extract_domain_features(structure, reference_dir=str(INPUT_DIR))
+    key = "domain_TM1_TM7_distance_delta_vs_3F3E"
+    assert key in features
+    assert abs(features[key]) > 0.01
 
 
 def test_orientation_features(structure):
@@ -74,6 +96,7 @@ def test_extract_features(sample_pdb):
     )
     assert "cavity_volume" in features
     assert "domain_TM1_TM7_distance" in features
+    assert "domain_TM1_TM7_distance_delta_vs_3F3E" in features
     assert "opm_tilt_angle" in features
     # OPM columns are N/A in CSV, so tilt must be computed from coordinates.
     assert features["opm_tilt_angle"] > 0
