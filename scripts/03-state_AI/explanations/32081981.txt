@@ -1,15 +1,15 @@
 LLM Model kimi-k2-7-code:
 
  IF
-The paper reports the X-ray structure of LeuT in a Na⁺/substrate-bound, inward-facing occluded conformation, with the cytoplasmic cavity partially open but substrate and ions still bound.
+The paper reports the X-ray structure of LeuT in a Na⁺/substrate-bound, inward-facing occluded conformation: the extracellular vestibule is closed, the cytoplasmic end of TM5 has tilted outward to enlarge the intracellular cavity, and the N-terminus is released, yet the substrate and both Na⁺ ions remain bound in their sites.
 
 LLM Model gemma4-31b-it:
 
 OCC
-The paper explicitly describes the determined X-ray structure of LeuT (specifically the W8A mutant bound to Na+ and L-Phe) as being in an "inward-facing occluded conformation."
+The paper explicitly describes the solved X-ray structure of LeuTW8A as a "Na+/substrate-bound, inward-facing occluded conformation," serving as a key intermediate that precedes full inward opening.
 
 LLM Model llama4-scout-17b:
 
-OCC 
-The protein in the paper is classified as being in the occluded state because it has a bound substrate (L-Phe) and two sodium ions, and the intracellular and extracellular gates are closed, which is consistent with the occluded state. The structure of LeuT in the paper is described as an inward-facing occluded conformation, indicating that it is in the occluded state.
+OCC
+The protein is in an inward-facing occluded state, as indicated by the LeuTW8A structure with bound Na+/L-Phe, showing a conformation that precedes the solvation of the Na2 site and release of substrate and ions to the intracellular environment.
 

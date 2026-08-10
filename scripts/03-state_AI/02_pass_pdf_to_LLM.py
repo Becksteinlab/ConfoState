@@ -32,8 +32,6 @@ with open(scripts / "01-data" / "protein_data.csv") as csvfile:
     for row in reader:
         reference_dict[row['pubmed']] = row['rcsb_id']
 
-
-
 ## Main code
 output_dict = {
     'pmemd_id': [],

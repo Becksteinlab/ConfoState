@@ -1,15 +1,15 @@
 LLM Model kimi-k2-7-code:
 
  OCC  
-The LeuT-bicelle structures are substrate-bound (Leu/SeMet) with Na⁺ in the primary binding site and the cytoplasmic gate closed, matching the outward-facing occluded state.
+The bicelle-grown LeuT–Leu/SeMet structures closely match PDB 2A65 and contain substrate and Na⁺ ions in a binding pocket sealed from both sides, representing an outward-facing occluded conformation.
 
 LLM Model gemma4-31b-it:
 
 OCC
-The provided text and figures describe LeuT bound to its substrate (leucine/SeMet) and sodium ions; in the alternating access model, the substrate-bound state of LeuT is characterized as the occluded state, where the protein is closed to both the outward and inward faces.
+The structure describes LeuT bound to its substrate (Leucine) and sodium ions (Na1, Na2) with the protein appearing in a state where the substrate is trapped; specifically, the comparison to previous structures and the presence of the substrate in the primary binding site typically characterize the occluded state in the LeuT alternating access mechanism.
 
 LLM Model llama4-scout-17b:
 
 OCC
-The protein is classified as occluded (OCC) because the description and figures provided suggest that the substrate leucine is bound within the protein, and the conformational state appears to have the substrate trapped in the binding site, which is characteristic of the occluded state in the alternating access model.
+The protein is classified as occluded (OCC) because the description and figures provided suggest that the substrate leucine is bound within the protein, and the conformational state appears to have the substrate trapped in the binding site, which is a characteristic of the occluded state in the alternating access model.
 
