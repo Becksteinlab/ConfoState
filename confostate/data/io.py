@@ -12,13 +12,15 @@ def download_metadata_from_RCSB(pdb_id):
     Parameters
     ----------
     pdb_id : str
-        The four-character Protein Data Bank identifier for the structure of interest,
+        The four-character Protein Data Bank identifier for the
+        structure of interest,
         such as "3F3A".
 
     Returns
     -------
     dict
-        A dictionary containing selected metadata fields for the requested PDB entry.
+        A dictionary containing selected metadata fields
+        for the requested PDB entry.
 
         Keys include:
         - rcsb_id : str
@@ -42,8 +44,9 @@ def download_metadata_from_RCSB(pdb_id):
 
     Notes
     -----
-    This function queries the RCSB REST API core entry endpoint, normalizes the JSON
-    response into a pandas DataFrame, and extracts commonly used structure metadata.
+    This function queries the RCSB REST API core entry endpoint,
+    normalizes the JSON response into a pandas DataFrame, and
+    extracts commonly used structure metadata.
     """
 
     metadata = {}
