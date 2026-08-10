@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="download_structures" href="scripts/download_structures.html"><link rel="prev" title="ConfoState — Usage Guide" href="USAGE.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="API reference" href="api.html"><link rel="prev" title="Feature Extraction" href="features/features.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>Development guide - ConfoState</title>
+        <title>Explainability - ConfoState</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -194,12 +194,12 @@
   <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="USAGE.html">ConfoState — Usage Guide</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scripts/download_structures.html">download_structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scripts/extract_feature_vectors.html">extract_feature_vectors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/LeuT_descriptors.html">LeuT descriptors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features/features.html">Feature Extraction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="explainability.html">Explainability</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Explainability</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 </ul>
 
@@ -221,7 +221,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="_sources/development.md.txt" title="View this page">
+  <a class="muted-link" href="_sources/explainability.md.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -239,51 +239,161 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="development-guide">
-<h1>Development guide<a class="headerlink" href="#development-guide" title="Link to this heading">¶</a></h1>
-<p>ConfoState uses a fixed Python style so reviews stay focused on science and
-design. Full contribution notes (including PRs) are in
-<a class="reference external" href="https://github.com/Becksteinlab/ConfoState/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>
-at the repository root; this page summarizes style and tooling.</p>
-<section id="style">
-<h2>Style<a class="headerlink" href="#style" title="Link to this heading">¶</a></h2>
+          <section id="explainability">
+<h1>Explainability<a class="headerlink" href="#explainability" title="Link to this heading">¶</a></h1>
+<p>ConfoState generates human-readable explanations for conformational-state
+predictions. The explainability layer sits downstream of feature extraction
+(Person 2) and model inference (Person 3).</p>
+<section id="package-layout">
+<h2>Package layout<a class="headerlink" href="#package-layout" title="Link to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>confostate/explain/
+├── __init__.py       # explain() public API
+├── _types.py         # PredictionResult, ExplanationResult, etc.
+├── importance.py     # Feature importance extraction
+├── render.py         # Template-based text/markdown rendering
+└── citations.py      # Literature references (DOI, PubMed)
+</pre></div>
+</div>
+</section>
+<section id="quick-start">
+<h2>Quick start<a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">confostate.explain</span><span class="w"> </span><span class="kn">import</span> <span class="n">explain</span><span class="p">,</span> <span class="n">PredictionResult</span>
+
+<span class="n">prediction</span> <span class="o">=</span> <span class="n">PredictionResult</span><span class="p">(</span>
+    <span class="n">pdb_id</span><span class="o">=</span><span class="s2">&quot;3F3E&quot;</span><span class="p">,</span>
+    <span class="n">predicted_state</span><span class="o">=</span><span class="s2">&quot;OF_open&quot;</span><span class="p">,</span>
+    <span class="n">probabilities</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;IF_open&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">&quot;OF_open&quot;</span><span class="p">:</span> <span class="mf">0.80</span><span class="p">,</span> <span class="s2">&quot;Occluded&quot;</span><span class="p">:</span> <span class="mf">0.10</span><span class="p">,</span>
+                   <span class="s2">&quot;Intermediate&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">},</span>
+    <span class="n">features</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;domain_TM1_TM7_distance&quot;</span><span class="p">:</span> <span class="mf">22.5</span><span class="p">,</span>
+        <span class="s2">&quot;rmsd_OF_open&quot;</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span>
+        <span class="s2">&quot;cavity_accessibility_out&quot;</span><span class="p">:</span> <span class="mf">0.52</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">explain</span><span class="p">(</span><span class="n">prediction</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plain-text output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Structure 3F3E is predicted to be outward-facing open (80% confidence).
+
+Key structural evidence:
+- The TM1–TM7 gate distance (22.50) supports an outward-facing open conformation.
+- The RMSD to outward-open reference (3F3E) (1.200) supports an outward-facing open conformation.
+...
+
+Importance method: heuristic.
+
+References:
+- Singh et al., Science 2008 — DOI: 10.1126/science.1159299 — PubMed: 18403708
+</pre></div>
+</div>
+<p>Markdown output is available via <code class="docutils literal notranslate"><span class="pre">explain(prediction,</span> <span class="pre">output_format=&quot;markdown&quot;)</span></code>.</p>
+</section>
+<section id="importance-methods">
+<h2>Importance methods<a class="headerlink" href="#importance-methods" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">explain()</span></code> function picks the best available importance source:</p>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="head"><p>Tool</p></th>
-<th class="head"><p>Role</p></th>
-<th class="head"><p>Project setting</p></th>
+<tr class="row-odd"><th class="head"><p>Priority</p></th>
+<th class="head"><p>Method</p></th>
+<th class="head"><p>When used</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><strong>Ruff</strong></p></td>
-<td><p>Linter and formatter</p></td>
-<td><p>Line length <strong>79</strong> (PEP 8)</p></td>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">provided</span></code></p></td>
+<td><p>Caller passes pre-computed importances (Person 3 pipeline)</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">coefficient</span></code></p></td>
+<td><p>Linear-model coefficients are supplied</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">permutation</span></code></p></td>
+<td><p>sklearn-compatible model + feature matrix</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">heuristic</span></code></p></td>
+<td><p>Default stub: compares features to LeuT state profiles</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>All settings are in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> (<code class="docutils literal notranslate"><span class="pre">[tool.ruff*]</span></code>).</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>activate<span class="w"> </span>confostate
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[lint]&quot;</span>
+<section id="heuristic-mode-current-default">
+<h3>Heuristic mode (current default)<a class="headerlink" href="#heuristic-mode-current-default" title="Link to this heading">¶</a></h3>
+<p>While Person 3’s models are in development, heuristic importance compares
+each feature to literature-informed LeuT state profiles in
+<code class="docutils literal notranslate"><span class="pre">confostate/explain/importance.py</span></code>. RMSD features matching the predicted
+state receive higher scores; domain and cavity features are scored by
+agreement with the profile.</p>
+</section>
+<section id="permutation-importance">
+<h3>Permutation importance<a class="headerlink" href="#permutation-importance" title="Link to this heading">¶</a></h3>
+<p>When a trained model with <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> is available:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">confostate.explain</span><span class="w"> </span><span class="kn">import</span> <span class="n">explain</span>
 
-ruff<span class="w"> </span>format<span class="w"> </span>.
-ruff<span class="w"> </span>check<span class="w"> </span>--fix<span class="w"> </span>.
-ruff<span class="w"> </span>check<span class="w"> </span>.
-ruff<span class="w"> </span>format<span class="w"> </span>--check<span class="w"> </span>--diff<span class="w"> </span>.
+<span class="n">result</span> <span class="o">=</span> <span class="n">explain</span><span class="p">(</span>
+    <span class="n">prediction</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">trained_model</span><span class="p">,</span>
+    <span class="n">feature_matrix</span><span class="o">=</span><span class="n">X</span><span class="p">,</span>          <span class="c1"># shape (n_samples, n_features)</span>
+    <span class="n">feature_names</span><span class="o">=</span><span class="n">feature_cols</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </section>
-<section id="pre-commit">
-<h2>Pre-commit<a class="headerlink" href="#pre-commit" title="Link to this heading">¶</a></h2>
-<p>Install hooks once so every commit is formatted and linted:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[lint]&quot;</span>
-pre-commit<span class="w"> </span>install
-pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files<span class="w">   </span><span class="c1"># optional: check the whole tree</span>
+<section id="provided-importances">
+<h3>Provided importances<a class="headerlink" href="#provided-importances" title="Link to this heading">¶</a></h3>
+<p>Person 3 can pass SHAP or other importances directly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">confostate.explain</span><span class="w"> </span><span class="kn">import</span> <span class="n">FeatureImportance</span><span class="p">,</span> <span class="n">explain</span>
+
+<span class="n">importances</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">FeatureImportance</span><span class="p">(</span>
+        <span class="n">feature_name</span><span class="o">=</span><span class="s2">&quot;domain_TM1_TM7_distance&quot;</span><span class="p">,</span>
+        <span class="n">display_name</span><span class="o">=</span><span class="s2">&quot;TM1–TM7 gate distance&quot;</span><span class="p">,</span>
+        <span class="n">importance</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span>
+        <span class="n">value</span><span class="o">=</span><span class="mf">22.5</span><span class="p">,</span>
+        <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;supports&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">explain</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">importances</span><span class="o">=</span><span class="n">importances</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>See <code class="docutils literal notranslate"><span class="pre">.pre-commit-config.yaml</span></code>. CI runs Ruff on every push and pull request to
-<code class="docutils literal notranslate"><span class="pre">main</span></code> / <code class="docutils literal notranslate"><span class="pre">develop</span></code>.</p>
+</section>
+</section>
+<section id="citations">
+<h2>Citations<a class="headerlink" href="#citations" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">confostate/explain/citations.py</span></code> maps LeuT states and key structural
+features to curated DOI and PubMed references. Citations are included
+automatically in rendered output.</p>
+<p>Supported states: <code class="docutils literal notranslate"><span class="pre">IF_open</span></code>, <code class="docutils literal notranslate"><span class="pre">OF_open</span></code>, <code class="docutils literal notranslate"><span class="pre">Occluded</span></code>, <code class="docutils literal notranslate"><span class="pre">Intermediate</span></code>.</p>
+</section>
+<section id="integration-with-person-5-cli">
+<h2>Integration with Person 5 (CLI)<a class="headerlink" href="#integration-with-person-5-cli" title="Link to this heading">¶</a></h2>
+<p>The planned <code class="docutils literal notranslate"><span class="pre">Classifier.classify()</span></code> API will call <code class="docutils literal notranslate"><span class="pre">explain()</span></code> internally.
+Expected flow:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>PDB → extract_features() → model.predict() → explain() → PredictionResult
+</pre></div>
+</div>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+pytest<span class="w"> </span>tests/test_explain.py<span class="w"> </span>-v
+</pre></div>
+</div>
+</section>
+<section id="future-work">
+<h2>Future work<a class="headerlink" href="#future-work" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>SHAP values for tree and neural models</p></li>
+<li><p>LLM polish pass (local Llama at ASU)</p></li>
+<li><p>Multi-family citation and profile tables</p></li>
+<li><p>HTML explanation renderer for CLI <code class="docutils literal notranslate"><span class="pre">--output-format</span> <span class="pre">html</span></code></p></li>
+</ul>
 </section>
 </section>
 
@@ -292,23 +402,23 @@ pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files<span cl
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="scripts/download_structures.html">
+          <a class="next-page" href="api.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">download_structures</div>
+                <div class="title">API reference</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="USAGE.html">
+          <a class="prev-page" href="features/features.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">ConfoState — Usage Guide</div>
+                <div class="title">Feature Extraction</div>
                 
               </div>
             </a>
@@ -342,9 +452,19 @@ pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files<span cl
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Development guide</a><ul>
-<li><a class="reference internal" href="#style">Style</a></li>
-<li><a class="reference internal" href="#pre-commit">Pre-commit</a></li>
+<li><a class="reference internal" href="#">Explainability</a><ul>
+<li><a class="reference internal" href="#package-layout">Package layout</a></li>
+<li><a class="reference internal" href="#quick-start">Quick start</a></li>
+<li><a class="reference internal" href="#importance-methods">Importance methods</a><ul>
+<li><a class="reference internal" href="#heuristic-mode-current-default">Heuristic mode (current default)</a></li>
+<li><a class="reference internal" href="#permutation-importance">Permutation importance</a></li>
+<li><a class="reference internal" href="#provided-importances">Provided importances</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#citations">Citations</a></li>
+<li><a class="reference internal" href="#integration-with-person-5-cli">Integration with Person 5 (CLI)</a></li>
+<li><a class="reference internal" href="#testing">Testing</a></li>
+<li><a class="reference internal" href="#future-work">Future work</a></li>
 </ul>
 </li>
 </ul>
