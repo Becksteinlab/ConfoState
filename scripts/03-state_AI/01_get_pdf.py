@@ -17,7 +17,7 @@ with open(scripts / "01-data" / "protein_data.csv") as csvfile:
             email="your.email@gmail.com",
             pmid=row['pubmed'],
             download_directory='PDFs',
-            allow_scihub=True
+            allow_scihub=False
         )
 
         retriever.download()
