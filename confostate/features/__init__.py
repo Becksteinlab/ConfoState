@@ -1,4 +1,4 @@
-"""Feature extraction for membrane protein conformational state classification."""
+"""Feature extraction for conformational state classification."""
 
 from confostate.features.pipeline import (
     FEATURE_GROUPS,

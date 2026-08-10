@@ -2,16 +2,17 @@
 
 Usage:
     python scripts/download_structures.py
-    python scripts/download_structures.py --codes-file data/structures/pdb_codes.txt
-    python scripts/download_structures.py --codes 3F3A 3F3C --output-dir data/structures
+    python scripts/download_structures.py \\
+        --codes-file data/structures/pdb_codes.txt
+    python scripts/download_structures.py \\
+        --codes 3F3A 3F3C --output-dir data/structures
 """
 
 import argparse
 import os
 import time
-import urllib.request
 import urllib.error
-
+import urllib.request
 
 RCSB_URL = "https://files.rcsb.org/download/{code}.pdb"
 DEFAULT_CODES_FILE = "data/structures/pdb_codes.txt"
@@ -20,7 +21,11 @@ DEFAULT_OUTPUT_DIR = "data/structures"
 
 def load_codes(path: str) -> list[str]:
     with open(path) as f:
-        return [line.strip().upper() for line in f if line.strip() and not line.startswith("#")]
+        return [
+            line.strip().upper()
+            for line in f
+            if line.strip() and not line.startswith("#")
+        ]
 
 
 def download_pdb(code: str, output_dir: str, overwrite: bool = False) -> bool:
@@ -44,12 +49,17 @@ def download_pdb(code: str, output_dir: str, overwrite: bool = False) -> bool:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Download PDB files from RCSB.")
+    parser = argparse.ArgumentParser(
+        description="Download PDB files from RCSB."
+    )
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
         "--codes-file",
         default=DEFAULT_CODES_FILE,
-        help=f"Path to text file with one PDB code per line (default: {DEFAULT_CODES_FILE})",
+        help=(
+            "Path to text file with one PDB code per line "
+            f"(default: {DEFAULT_CODES_FILE})"
+        ),
     )
     group.add_argument(
         "--codes",

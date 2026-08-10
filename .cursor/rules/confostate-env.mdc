@@ -1,0 +1,18 @@
+---
+description: Use the confostate mamba environment for all shell work
+alwaysApply: true
+---
+
+# ConfoState environment
+
+Always use the `confostate` mamba/conda env for Python, Sphinx, pytest, and other project tooling.
+
+```bash
+# Activate (interactive shells)
+mamba activate confostate
+
+# Non-interactive / agent shells: put the env on PATH
+export PATH="/Users/oliver/miniforge3/envs/confostate/bin:$PATH"
+```
+
+Do not rely on system Python (`/opt/local/bin/python`, bare `python3`) or an empty `.venv`.

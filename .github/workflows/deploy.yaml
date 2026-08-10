@@ -1,0 +1,230 @@
+name: Build and upload to PyPI
+
+on:
+  push:
+    tags:
+      - "*"
+  release:
+    types:
+      - published
+
+concurrency:
+  group: "${{ github.ref }}-${{ github.head_ref }}-${{ github.workflow }}"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build package
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.extract-version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+
+      - name: Build package (wheel and sdist)
+        run: python -m build
+
+      - name: Check package
+        run: twine check dist/*
+
+      - name: Extract package version
+        id: extract-version
+        run: |
+          WHEEL_FILE=$(ls dist/*.whl)
+          VERSION=$(basename "$WHEEL_FILE" | sed -n 's/confostate-\([^-]*\)-.*/\1/p')
+          if [ -z "$VERSION" ]; then
+            python -m pip install --upgrade pip
+            pip install "$WHEEL_FILE" --quiet
+            VERSION=$(python -c "import confostate; print(confostate.__version__)")
+            pip uninstall -y confostate --quiet
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Extracted version: $VERSION"
+
+      - name: Upload dist files
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist-files
+          path: dist/
+          retention-days: 1
+
+  test-pytest:
+    name: Run tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout repository for test files
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Download dist files
+        uses: actions/download-artifact@v8
+        with:
+          name: dist-files
+          path: dist/
+
+      - name: Install wheel with test extras
+        run: |
+          python -m pip install --upgrade pip
+          WHEEL_FILE=$(ls dist/*.whl)
+          pip install "confostate[test] @ file://$(pwd)/${WHEEL_FILE}"
+
+      - name: Test import
+        run: |
+          python -c "import confostate; print(f'Package {confostate.__version__} imported successfully')"
+
+      - name: Run tests
+        run: |
+          pytest --verbose
+
+  deploy-testpypi:
+    name: Deploy to TestPyPI
+    runs-on: ubuntu-latest
+    needs: [build, test-pytest]
+    if: |
+      github.repository == 'Becksteinlab/ConfoState' &&
+      (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/'))
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/confostate
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+    steps:
+      - name: Download dist files
+        uses: actions/download-artifact@v8
+        with:
+          name: dist-files
+          path: dist/
+
+      - name: Publish to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          verbose: true
+
+  deploy-pypi:
+    name: Deploy to PyPI
+    runs-on: ubuntu-latest
+    needs: [build, test-pytest]
+    if: |
+      github.repository == 'Becksteinlab/ConfoState' &&
+      (github.event_name == 'release' && github.event.action == 'published')
+    environment:
+      name: pypi
+      url: https://pypi.org/p/confostate
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+    steps:
+      - name: Download dist files
+        uses: actions/download-artifact@v8
+        with:
+          name: dist-files
+          path: dist/
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+
+  test-deployed-testpypi:
+    name: Test deployed package (TestPyPI)
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+    needs: [build, deploy-testpypi]
+    if: |
+      github.repository == 'Becksteinlab/ConfoState' &&
+      (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/'))
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Checkout repository for actions
+        uses: actions/checkout@v6
+
+      - name: Wait for version to be available on TestPyPI
+        uses: ./.github/actions/wait-for-pypi-version
+        with:
+          repository: testpypi
+          package: confostate
+          version: ${{ needs.build.outputs.version }}
+
+      - name: Install from TestPyPI
+        run: |
+          python -m pip install --upgrade pip
+          pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ "confostate[test]==${{ needs.build.outputs.version }}"
+
+      - name: Test import
+        run: |
+          python -c "import confostate; print(f'Package {confostate.__version__} imported successfully from TestPyPI')"
+
+      - name: Run tests
+        run: |
+          git clone --depth 1 https://github.com/${{ github.repository }}.git _src
+          cd _src
+          pytest -v
+
+  test-deployed-pypi:
+    name: Test deployed package (PyPI)
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+    needs: [build, deploy-pypi]
+    if: |
+      github.repository == 'Becksteinlab/ConfoState' &&
+      (github.event_name == 'release' && github.event.action == 'published')
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Checkout repository for actions
+        uses: actions/checkout@v6
+
+      - name: Wait for version to be available on PyPI
+        uses: ./.github/actions/wait-for-pypi-version
+        with:
+          repository: pypi
+          package: confostate
+          version: ${{ needs.build.outputs.version }}
+
+      - name: Install from PyPI
+        run: |
+          python -m pip install --upgrade pip
+          pip install "confostate[test]==${{ needs.build.outputs.version }}"
+
+      - name: Test import
+        run: |
+          python -c "import confostate; print(f'Package {confostate.__version__} imported successfully from PyPI')"
+
+      - name: Run tests
+        run: |
+          git clone --depth 1 https://github.com/${{ github.repository }}.git _src
+          cd _src
+          pytest -v
