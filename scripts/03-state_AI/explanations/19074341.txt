@@ -1,0 +1,23 @@
+LLM Model kimi-k2-7-code:
+
+ I don’t see the PDF text or markdown content after the marker. Please paste the paper content, and I’ll classify the protein’s state as **OF**, **IF**, or **OCC** with a brief explanation.
+
+LLM Model gemma4-31b-it:
+
+Please provide the text or the markdown content of the PDF! You haven't pasted the paragraphs yet. Once you provide the text, I will analyze the structural data and conformational cues to give you the classification you need. 
+
+I'm ready when you are!
+
+LLM Model llama4-scout-17b:
+
+It appears you've provided a prompt but not the actual PDF content in markdown format for me to review. To proceed, I would need the text of the PDF content to analyze and classify the state of the protein described.
+
+Once you provide the content, I can assist you by:
+
+1. Reading the provided text.
+2. Analyzing it to determine the state of the protein (Outward-Facing (OF), Inward-Facing (IF), or occluded (OCC)).
+3. Returning the classification as a single word on one line.
+4. Providing a brief explanation for the classification on the next line.
+
+Please provide the content, and I'll be happy to help.
+

@@ -1,0 +1,67 @@
+[PosixPath('/nfs/homes3/jauy1/Projects/Dev/ConfoState/scripts/03-state_AI/PDFs/pmid-19074341/pmid-19074341.pdf'), PosixPath('/nfs/homes3/jauy1/Projects/Dev/ConfoState/scripts/03-state_AI/PDFs/pmid-20964375/pmid-20964375.pdf'), PosixPath('/nfs/homes3/jauy1/Projects/Dev/ConfoState/scripts/03-state_AI/PDFs/pmid-22230955/pmid-22230955.pdf'), PosixPath('/nfs/homes3/jauy1/Projects/Dev/ConfoState/scripts/03-state_AI/PDFs/pmid-22245965/pmid-22245965.pdf'), PosixPath('/nfs/homes3/jauy1/Projects/Dev/ConfoState/scripts/03-state_AI/PDFs/pmid-27221344/pmid-27221344.pdf'), PosixPath('/nfs/homes3/jauy1/Projects/Dev/ConfoState/scripts/03-state_AI/PDFs/pmid-32081981/pmid-32081981.pdf')]
+
+=== Document parser messages ===
+Warning: OCR disabled because document is no PDF.
+
+=== Document parser messages ===
+Using Tesseract for OCR processing.
+OCR on page.number=0/1.
+OCR on page.number=1/2.
+OCR on page.number=3/4.
+OCR on page.number=4/5.
+OCR on page.number=5/6.
+OCR on page.number=6/7.
+OCR on page.number=7/8.
+OCR on page.number=8/9.
+OCR on page.number=9/10.
+OCR on page.number=10/11.
+OCR on page.number=12/13.
+
+=== Document parser messages ===
+Using Tesseract for OCR processing.
+OCR on page.number=1/2.
+OCR on page.number=2/3.
+OCR on page.number=3/4.
+OCR on page.number=4/5.
+OCR on page.number=5/6.
+OCR on page.number=6/7.
+OCR on page.number=7/8.
+OCR on page.number=8/9.
+OCR on page.number=9/10.
+OCR on page.number=10/11.
+OCR on page.number=12/13.
+
+=== Document parser messages ===
+Using Tesseract for OCR processing.
+OCR on page.number=1/2.
+OCR on page.number=2/3.
+OCR on page.number=3/4.
+OCR on page.number=4/5.
+OCR on page.number=5/6.
+OCR on page.number=6/7.
+
+=== Document parser messages ===
+Using Tesseract for OCR processing.
+OCR on page.number=0/1.
+OCR on page.number=3/4.
+OCR on page.number=4/5.
+OCR on page.number=5/6.
+OCR on page.number=6/7.
+OCR on page.number=7/8.
+OCR on page.number=8/9.
+OCR on page.number=9/10.
+OCR on page.number=10/11.
+
+=== Document parser messages ===
+Using Tesseract for OCR processing.
+OCR on page.number=0/1.
+OCR on page.number=2/3.
+OCR on page.number=3/4.
+OCR on page.number=4/5.
+OCR on page.number=6/7.
+OCR on page.number=7/8.
+OCR on page.number=8/9.
+OCR on page.number=9/10.
+OCR on page.number=10/11.
+OCR on page.number=12/13.
+OCR on page.number=13/14.

@@ -1,0 +1,15 @@
+LLM Model kimi-k2-7-code:
+
+ OCC
+The paper reports spin-labeled LeuT mutants (F177R1 and I204R1) built on the LeuT structure PDB ID 2A65, which is the substrate/Na⁺-bound occluded conformation; the spin-labeled structures (3MPN and 3MPQ) are nearly identical to this wild-type framework, with no reported transition to an outward- or inward-facing state.
+
+LLM Model gemma4-31b-it:
+
+OCC
+The paper describes the protein LeuT in a state that corresponds to its crystal structure (PDB 2A65), which is known to be the occluded state, where the substrate-binding site is closed to both the extracellular and intracellular environments.
+
+LLM Model llama4-scout-17b:
+
+OCC 
+The protein is in an occluded state because the spin label is interacting with the protein surface, restricting its motion, and the crystal structure shows a single conformation of the R1 side chain with specific interactions with residues within the same helix or a neighboring helix.
+

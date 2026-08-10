@@ -1,0 +1,17 @@
+LLM Model kimi-k2-7-code:
+
+ OF
+The paper reports a substrate-free, Na⁺-bound LeuT mutant (LeuTᴷ(Y108F)) in an outward-open conformation, with the extracellular gate open and a closed intracellular gate; it also describes a separate apo inward-open LeuTᴷ(TSY) structure.
+
+LLM Model gemma4-31b-it:
+
+OF/IF
+The paper describes two distinct crystal structures of LeuT: one in a substrate-free "outward-open" (OF) state and another in an "inward-open" (IF) state.
+
+LLM Model llama4-scout-17b:
+
+OCC 
+The protein is in the occluded state, as the article mentions "crystal structures of LeuT in substrate-bound outward-occluded and competitive inhibitor-bound outward-facing states" and the structure LeuT<sup>K</sup> (TSY) adopts an inward-open conformation, implying that the occluded state is a distinct conformation. 
+
+However, given that 3 structures are solved: outward-open, inward-open and substrate-bound outward-occluded; and that substrate-free LeuT with Na+ is outward-open; the description best fits OCC given context of outward-open and inward-open states being solved.
+
