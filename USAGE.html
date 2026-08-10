@@ -316,7 +316,46 @@ python scripts/download_structures.py \
 <hr class="docutils" />
 <section id="train-and-evaluate-a-classifier">
 <h2>5. Train and evaluate a classifier<a class="headerlink" href="#train-and-evaluate-a-classifier" title="Link to this heading">¶</a></h2>
-<p><em>(To be documented as model training workflows are developed.)</em></p>
+<p>Person 3 outline scripts are available to scaffold ML workflows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python scripts/p3_dataset_loader.py \
+    --features-csv data/features/leut_features.csv \
+    --out-dir data/processed
+
+python scripts/p3_baseline_models.py \
+    --features-csv data/features/leut_features.csv \
+    --model logreg \
+    --out-dir data/models/leut/logreg
+
+python scripts/p3_training_pipeline.py \
+    --features-csv data/features/leut_features.csv \
+    --models logreg random_forest svm_rbf \
+    --out-dir data/models
+
+python scripts/p3_evaluate_reporting.py \
+    --model-path data/models/leut/logreg/model.pkl \
+    --test-csv data/processed/test_split.csv \
+    --report-path docs/reports/phase3-eval-report.md
+
+python scripts/p3_model_registry.py \
+    --family LeuT \
+    --model-name logreg \
+    --artifact-path data/models/leut/logreg/model.pkl \
+    --metrics-json docs/reports/phase3-eval-metrics.json \
+    --show-latest
+</pre></div>
+</div>
+<p>Train a baseline classifier from the annotation-table inputs defined in
+<code class="docutils literal notranslate"><span class="pre">data/annotations/leu_t_transporters.csv.example</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python scripts/train_annotation_model.py
+</pre></div>
+</div>
+<p>Use a real annotation file (same schema) once available:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python scripts/train_annotation_model.py \
+    --annotations data/annotations/leu_t_transporters.csv \
+    --model-out data/models/annotations_baseline_logreg.joblib \
+    --metrics-out data/models/annotations_baseline_metrics.json
+</pre></div>
+</div>
 </section>
 <hr class="docutils" />
 <section id="notes">
